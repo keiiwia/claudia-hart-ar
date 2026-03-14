@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Claudia Hart AR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Web AR experience using AR.js with migrated 8th Wall image targets." />
+
+    <!-- A-Frame (required by AR.js) -->
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+
+    <!-- AR.js (A-Frame version) -->
+    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.min.js"></script>
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="branding">
+        <span class="brand-title">Claudia Hart AR</span>
+        <span class="brand-subtitle">Web-based AR experience</span>
+      </div>
+      <div class="status-pill" id="ar-status">Initializing…</div>
+    </header>
+
+    <main class="app-main">
+      <section class="instructions">
+        <h2>How to view</h2>
+        <ol>
+          <li>Grant camera permission when prompted.</li>
+          <li>Point your device at one of the printed image targets.</li>
+          <li>Wait for the 3D content to appear on top of the target.</li>
+        </ol>
+      </section>
+
+      <!-- AR scene -->
+      <section class="scene-wrapper">
+        <a-scene
+          vr-mode-ui="enabled: false"
+          embedded
+          renderer="logarithmicDepthBuffer: true; antialias: true;"
+          arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
+          id="ar-scene"
+        >
+          <a-assets>
+            <a-asset-item id="jelly-glb" src="test-aframe/src/assets/jellyfish-model.glb"></a-asset-item>
+            <img id="jelly-thumb" src="test-aframe/src/assets/video-thumbnail.jpg">
+            <video id="jelly-video" autoplay muted loop crossorigin="anonymous" src="test-aframe/src/assets/jellyfish-video.mp4"></video>
+          </a-assets>
+
+          <!-- Camera -->
+          <a-entity camera></a-entity>
+
+          <!-- model-target: print image-targets/model-target_target.jpeg; generate .iset/.fset/.fset3 and put as test-aframe/model-target.* -->
+          <a-nft
+            type="nft"
+            url="test-aframe/model-target"
+            smooth="true"
+            smoothCount="10"
+            smoothTolerance="0.01"
+            smoothThreshold="5"
+            emitevents="true"
+            id="model-marker"
+          >
+            <a-entity gltf-model="#jelly-glb" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
+          </a-nft>
+
+          <!-- video-target: print image-targets/video-target_target.jpeg; generate .iset/.fset/.fset3 and put as test-aframe/video-target.* -->
+          <a-nft
+            type="nft"
+            url="test-aframe/video-target"
+            smooth="true"
+            smoothCount="10"
+            smoothTolerance="0.01"
+            smoothThreshold="5"
+            emitevents="true"
+            id="video-marker"
+          >
+            <a-video
+              src="#jelly-video"
+              position="0 0 0"
+              width="0.79"
+              height="1"
+              rotation="0 0 0"
+            ></a-video>
+          </a-nft>
+        </a-scene>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>Web AR powered by AR.js (A-Frame)</span>
+    </footer>
+
+    <script src="./main.js"></script>
+  </body>
+  </html>
+
