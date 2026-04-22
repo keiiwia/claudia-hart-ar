@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/mirror-glit-dish-trackable_target.jpeg",
+  "name": "mirror-glit-dish-trackable",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 0,
+    "width": 1500,
+    "height": 2000,
+    "isRotated": false,
+    "originalWidth": 1500,
+    "originalHeight": 2000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1752939523758,
+  "updated": 1752939523758
+}

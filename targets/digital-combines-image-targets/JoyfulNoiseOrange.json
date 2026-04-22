@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/JoyfulNoiseOrange_target.jpeg",
+  "name": "JoyfulNoiseOrange",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 73,
+    "width": 900,
+    "height": 1200,
+    "isRotated": false,
+    "originalWidth": 1046,
+    "originalHeight": 1200
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1673292869188,
+  "updated": 1673293049194
+}

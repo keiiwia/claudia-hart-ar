@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/LinearLeather_9.1inch_target.jpeg",
+  "name": "LinearLeather_9.1inch",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 250,
+    "width": 1500,
+    "height": 2000,
+    "isRotated": false,
+    "originalWidth": 2000,
+    "originalHeight": 2000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": false,
+  "created": 1673295416587,
+  "updated": 1673295416587
+}

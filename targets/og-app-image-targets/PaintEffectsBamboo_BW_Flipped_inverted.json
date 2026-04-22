@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/PaintEffectsBamboo_BW_Flipped_inverted_target.jpeg",
+  "name": "PaintEffectsBamboo_BW_Flipped_inverted",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 250,
+    "width": 1500,
+    "height": 2000,
+    "isRotated": false,
+    "originalWidth": 2000,
+    "originalHeight": 2000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1674060012151,
+  "updated": 1674060012151
+}

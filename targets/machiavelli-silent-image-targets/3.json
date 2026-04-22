@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/3_target.jpeg",
+  "name": "3",
+  "type": "PLANAR",
+  "properties": {
+    "top": 35,
+    "left": 0,
+    "width": 488,
+    "height": 651,
+    "isRotated": true,
+    "originalWidth": 488,
+    "originalHeight": 720
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": false,
+  "created": 1684699167158,
+  "updated": 1684699534033
+}
