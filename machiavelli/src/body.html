@@ -1,0 +1,186 @@
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+ 
+<a-scene
+  xrextras-gesture-detector
+  landing-page
+  xrextras-loading
+  xrextras-runtime-error
+  xrweb="disableWorldTracking:true;"
+  renderer="colorManagement:true; webgl2: true;">
+
+  <a-assets>
+
+    <video
+      id="vid-1"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/1.mp4">
+    </video>
+
+    <video
+      id="vid-2"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/2.mp4">
+    </video>
+
+    <video
+      id="vid-3"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/3.mp4">
+    </video>
+
+    <video
+      id="vid-4"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/4.mp4">
+    </video>
+
+    <video
+      id="vid-5"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/5.mp4">
+    </video>
+
+    <video
+      id="vid-6"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/6.mp4">
+    </video>
+
+    <video
+      id="vid-7"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/7.mp4">
+    </video>
+
+    <video
+      id="vid-8"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/8.mp4">
+    </video>
+
+    <video
+      id="vid-9"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/9.mp4">
+    </video>
+
+    
+
+    
+  </a-assets>
+
+  <a-camera
+    position="0 4 10"
+    raycaster="objects: .cantap"
+    cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+
+  
+  <xrextras-named-image-target name="1">
+    <xrextras-target-video-fade 
+      video="#vid-1"
+      height="1"
+      width="1.35"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="2">
+    <xrextras-target-video-fade 
+      video="#vid-2"
+      height="1"
+      width="1.045"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="3">
+    <xrextras-target-video-fade 
+      video="#vid-3"
+      height="1"
+      width="1.11"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="4">
+    <xrextras-target-video-fade 
+      video="#vid-4"
+      height="1"
+      width="1.05"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="5">
+    <xrextras-target-video-fade 
+      video="#vid-5"
+      height="1.075"
+      width="1.4"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="6">
+    <xrextras-target-video-fade 
+      video="#vid-6"
+      height="1"
+      width="1.45"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="7">
+    <xrextras-target-video-fade 
+      video="#vid-7"
+      height="1.065"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="8">
+    <xrextras-target-video-fade 
+      video="#vid-8"
+      height="1"
+      width="1.12"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="9">
+    <xrextras-target-video-fade 
+      video="#vid-9"
+      height="1.13"
+      width="1.45"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target> 
+
+</a-scene>
+

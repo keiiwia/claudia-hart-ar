@@ -1,0 +1,209 @@
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+ 
+<a-scene
+  xrextras-gesture-detector
+  landing-page
+  xrextras-loading
+  xrextras-runtime-error
+  xrweb="disableWorldTracking:true;"
+  renderer="colorManagement:true; webgl2: true;">
+
+  <a-assets>
+
+    <!-- OG 2 Thumbnail -->
+    <img id="og2-jpg" src="assets/og2.jpg">
+    <!-- OG 2 Video -->
+    <video
+      id="og2-mp4"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/og2.mp4">
+    </video>
+
+    <!-- OG 3 Thumbnail -->
+    <img id="og3-jpg" src="assets/og3.jpg">
+    <!-- OG 3 Video -->
+    <video
+      id="og3-mp4"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/og3.mp4">
+    </video>
+
+    <!-- OG 4 Thumbnail -->
+    <img id="og4-jpg" src="assets/og4.jpg">
+    <!-- OG 4 Thumbnail -->
+    <video
+      id="og4-mp4"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/og4.mp4">
+    </video>
+
+    <!-- OG 6 Thumbnail -->
+    <img id="og6-jpg" src="assets/og6.jpg">
+    <!-- OG 6 Thumbnail -->
+    <video
+      id="og6-mp4"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/og6.mp4">
+    </video>
+
+    <!-- OG 7 Thumbnail -->
+    <img id="og7-jpg" src="assets/og7.jpg">
+    <!-- OG 7 Thumbnail -->
+    <video
+      id="og7-mp4"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/og7.mp4">
+    </video>
+
+    <!-- OG 8 Thumbnail -->
+    <img id="og8-jpg" src="assets/og8.jpg">
+    <!-- OG 8 Thumbnail -->
+    <video
+      id="og8-mp4"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/og8.mp4">
+    </video>
+
+    <!-- OG 9 Thumbnail -->
+    <img id="og9-jpg" src="assets/og9.jpg">
+    <!-- OG 9 Thumbnail -->
+    <video
+      id="og9-mp4"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/og9.mp4">
+    </video>
+
+    <!-- OG 10 Thumbnail -->
+    <img id="og10-jpg" src="assets/og10.jpg">
+    <!-- OG 10 Thumbnail -->
+    <video
+      id="og10-mp4"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/og10.mp4">
+    </video>    
+  </a-assets>
+
+  <a-camera
+    position="0 4 10"
+    raycaster="objects: .cantap"
+    cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+
+  <!-- Egg -->
+  <xrextras-named-image-target name="00113">
+     <a-entity 
+      xrextras-play-video="video: #og2-mp4; thumb: #og2-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity>
+    <!-- <xrextras-target-video-fade 
+      video="#og2-mp4"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade> -->
+  </xrextras-named-image-target>
+
+  <!-- sun/face -->
+  <xrextras-named-image-target name="00060">
+    <a-entity 
+      xrextras-play-video="video: #og3-mp4; thumb: #og3-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity>
+    <!-- <xrextras-target-video-fade 
+      video="#og3-mp4"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade> -->
+  </xrextras-named-image-target>
+
+  <!-- spiky swirl -->
+  <xrextras-named-image-target name="00225-v2">
+    <a-entity 
+      xrextras-play-video="video: #og4-mp4; thumb: #og4-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity>
+    <!-- <xrextras-target-video-fade 
+      video="#og4-mp4"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade> -->
+  </xrextras-named-image-target>
+
+  <!-- att -->
+  <xrextras-named-image-target name="00313">
+    <a-entity 
+      xrextras-play-video="video: #og6-mp4; thumb: #og6-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity>
+    <!-- <xrextras-target-video-fade 
+      video="#og6-mp4"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade> -->
+  </xrextras-named-image-target>
+
+  <!-- bird crest -->
+  <xrextras-named-image-target name="00806">
+    <a-entity 
+      xrextras-play-video="video: #og7-mp4; thumb: #og7-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity>
+    <!-- <xrextras-target-video-fade 
+      video="#og7-mp4"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade> -->
+  </xrextras-named-image-target>
+
+  <!-- bitcoin -->
+  <xrextras-named-image-target name="00387">
+    <a-entity 
+      xrextras-play-video="video: #og8-mp4; thumb: #og8-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity>
+    <!-- <xrextras-target-video-fade 
+      video="#og8-mp4"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade> -->
+  </xrextras-named-image-target>
+
+  <!-- wing crest -->
+  <xrextras-named-image-target name="00182">
+    <a-entity 
+      xrextras-play-video="video: #og9-mp4; thumb: #og9-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity>
+    <!-- <xrextras-target-video-fade 
+      video="#og9-mp4"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade> -->
+  </xrextras-named-image-target>
+
+  <!-- shield -->
+  <xrextras-named-image-target name="00342">
+    <a-entity 
+      xrextras-play-video="video: #og10-mp4; thumb: #og10-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity>
+    <!-- <xrextras-target-video-fade 
+      video="#og10-mp4"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade> -->
+  </xrextras-named-image-target>
+</a-scene>

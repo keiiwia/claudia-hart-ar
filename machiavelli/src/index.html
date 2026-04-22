@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Machiavelli (Silent) Copy</title>
+  <meta itemprop="name" content="Machiavelli (Silent) Copy">
+  <meta name="twitter:title" content="Machiavelli (Silent) Copy">
+  <meta property="og:title" content="Machiavelli (Silent) Copy">
+  <meta property="og:site_name" content="Machiavelli (Silent) Copy">
+  <meta name="description" content="">
+  <meta itemprop="description" content="">
+  <meta property="og:description" content="">
+  <meta name="twitter:description" content="">
+  <script crossorigin="anonymous" src="./external/scripts/8frame-1.3.0.min.js"></script>
+  <script crossorigin="anonymous" src="./external/xrextras/xrextras.js"></script>
+  <script crossorigin="anonymous" src="./external/landing-page/landing-page.js"></script>
+  <script crossorigin="anonymous" src="./external/xr/xr.js" async="true" data-preload-chunks="face, slam">
+  </script>
+
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- head.html is optional; elements will be added to your html head before app.js is loaded. -->
+
+<!-- Use "8thwall:" meta tags to hook into 8th Wall's build process and developer tools. -->
+<meta name="8thwall:renderer" content="aframe:1.3.0"/>
+<meta name="8thwall:package" content="@8thwall.xrextras"/>
+<meta name="8thwall:package" content="@8thwall.landing-page"/>
+
+<!-- Other external scripts and meta tags can also be added. -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+</head>
+
+<body>
+<script src="bundle.js"></script>
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+ 
+<a-scene
+  xrextras-gesture-detector
+  landing-page
+  xrextras-loading
+  xrextras-runtime-error
+  xrweb="disableWorldTracking:true;"
+  renderer="colorManagement:true; webgl2: true;">
+
+  <a-assets>
+
+    <video
+      id="vid-1"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/1.mp4">
+    </video>
+
+    <video
+      id="vid-2"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/2.mp4">
+    </video>
+
+    <video
+      id="vid-3"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/3.mp4">
+    </video>
+
+    <video
+      id="vid-4"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/4.mp4">
+    </video>
+
+    <video
+      id="vid-5"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/5.mp4">
+    </video>
+
+    <video
+      id="vid-6"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/6.mp4">
+    </video>
+
+    <video
+      id="vid-7"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/7.mp4">
+    </video>
+
+    <video
+      id="vid-8"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/8.mp4">
+    </video>
+
+    <video
+      id="vid-9"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/9.mp4">
+    </video>
+
+    
+
+    
+  </a-assets>
+
+  <a-camera
+    position="0 4 10"
+    raycaster="objects: .cantap"
+    cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+
+  
+  <xrextras-named-image-target name="1">
+    <xrextras-target-video-fade 
+      video="#vid-1"
+      height="1"
+      width="1.35"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="2">
+    <xrextras-target-video-fade 
+      video="#vid-2"
+      height="1"
+      width="1.045"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="3">
+    <xrextras-target-video-fade 
+      video="#vid-3"
+      height="1"
+      width="1.11"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="4">
+    <xrextras-target-video-fade 
+      video="#vid-4"
+      height="1"
+      width="1.05"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="5">
+    <xrextras-target-video-fade 
+      video="#vid-5"
+      height="1.075"
+      width="1.4"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="6">
+    <xrextras-target-video-fade 
+      video="#vid-6"
+      height="1"
+      width="1.45"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="7">
+    <xrextras-target-video-fade 
+      video="#vid-7"
+      height="1.065"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="8">
+    <xrextras-target-video-fade 
+      video="#vid-8"
+      height="1"
+      width="1.12"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="9">
+    <xrextras-target-video-fade 
+      video="#vid-9"
+      height="1.13"
+      width="1.45"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target> 
+
+</a-scene>
+
+
+</body>
+
+</html>

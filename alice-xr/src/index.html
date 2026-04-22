@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Alice XR</title>
+  <meta itemprop="name" content="Alice XR">
+  <meta name="twitter:title" content="Alice XR">
+  <meta property="og:title" content="Alice XR">
+  <meta property="og:site_name" content="Alice XR">
+  <meta name="description" content="Alice XR Wallpaper 2017/2025">
+  <meta itemprop="description" content="Alice XR Wallpaper 2017/2025">
+  <meta property="og:description" content="Alice XR Wallpaper 2017/2025">
+  <meta name="twitter:description" content="Alice XR Wallpaper 2017/2025">
+  <script crossorigin="anonymous" src="./external/scripts/8frame-1.3.0.min.js"></script>
+  <script crossorigin="anonymous" src="./external/xrextras/xrextras.js"></script>
+  <script crossorigin="anonymous" src="./external/landing-page/landing-page.js"></script>
+  <script crossorigin="anonymous" src="./external/xr/xr.js" async="true" data-preload-chunks="face, slam">
+  </script>
+
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- head.html is optional; elements will be added to your html head before app.js is loaded. -->
+
+<!-- Use "8thwall:" meta tags to hook into 8th Wall's build process and developer tools. -->
+<meta name="8thwall:renderer" content="aframe:1.3.0"/>
+<meta name="8thwall:package" content="@8thwall.xrextras"/>
+<meta name="8thwall:package" content="@8thwall.landing-page"/>
+
+<!-- Other external scripts and meta tags can also be added. -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+</head>
+
+<body>
+<script src="bundle.js"></script>
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+
+<a-scene
+  xrextras-gesture-detector
+  landing-page
+  xrextras-loading
+  xrextras-runtime-error
+  renderer="colorManagement:true; webgl2: true;"
+  xrweb="disableWorldTracking: true">
+  <a-assets>
+    <img id="nine-square-thumb" src="assets/augments/9square.jpg" />
+    <img id="cupcake-thumb" src="assets/augments/cupcake.jpg" />
+    <img id="eat-fb-thumb" src="assets/augments/eat-fb.jpg" />
+    <img id="miniature-horse-thumb" src="assets/augments/miniature-horse.jpg" />
+    <video
+      id="nine-square"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/9square.mp4"></video>
+    <video
+      id="cupcake"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/cupcake.mp4"></video>
+    <video
+      id="eat-fb"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/eat-fb.mp4"></video>
+    <video
+      id="miniature-horse"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/miniature-horse.mp4"></video>
+  </a-assets>
+
+  <a-camera position="0 4 10" raycaster="objects: .cantap" cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <xrextras-named-image-target name="paint-effects-bamboo">
+    <xrextras-target-video-fade
+      video="#miniature-horse"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="paint-effects-bamboo-invert">
+    <xrextras-target-video-fade
+      video="#eat-fb"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="qr">
+    <xrextras-target-video-fade
+      video="#cupcake"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="linear-leather">
+    <xrextras-target-video-fade
+      video="#nine-square"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+</a-scene>
+
+</body>
+
+</html>

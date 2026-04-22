@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Machiavelli AR</title>
+
+  <!--
+  ══════════════════════════════════════════════════════════
+  SETUP CHECKLIST
+  ══════════════════════════════════════════════════════════
+  Videos are already in: machiavelli/src/assets/1.mp4 – 9.mp4
+  Video aspect ratios are pre-set from the original 8th Wall app.
+
+  Compile targets at: https://hiukim.github.io/mind-ar-js-doc/tools/compiler
+  Upload target images IN THIS ORDER (index must match targetIndex):
+    index 0 → machiavelli/image-targets/1_target.jpeg
+    index 1 → machiavelli/image-targets/2_target.jpeg
+    index 2 → machiavelli/image-targets/3_target.jpeg
+    index 3 → machiavelli/image-targets/4_target.jpeg
+    index 4 → machiavelli/image-targets/5_target.jpeg
+    index 5 → machiavelli/image-targets/6_target.jpeg
+    index 6 → machiavelli/image-targets/7_target.jpeg
+    index 7 → machiavelli/image-targets/8_target.jpeg
+    index 8 → machiavelli/image-targets/9_target.jpeg
+  Save output as: machiavelli/targets/targets.mind
+  ══════════════════════════════════════════════════════════
+  -->
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+
+    #loading {
+      position: fixed; inset: 0; z-index: 100;
+      background: #000; color: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading p { font-size: 14px; opacity: 0.6; letter-spacing: 0.03em; }
+
+    #tap-start {
+      position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.65);
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+      color: #fff; font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    #tap-start.show { display: flex; }
+    #tap-start p { font-size: 16px; text-align: center; padding: 0 32px; line-height: 1.5; opacity: 0.85; }
+    #tap-start small { font-size: 12px; opacity: 0.5; }
+
+    #cam-error {
+      position: fixed; inset: 0; z-index: 101;
+      background: #000; color: #fff;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      text-align: center; padding: 32px;
+    }
+    #cam-error.show { display: flex; }
+    #cam-error h2 { font-size: 20px; font-weight: 600; }
+    #cam-error p { font-size: 14px; opacity: 0.65; line-height: 1.6; max-width: 280px; }
+    #cam-error button {
+      margin-top: 8px; padding: 10px 24px;
+      background: #fff; color: #000;
+      border: none; border-radius: 20px; font-size: 14px; cursor: pointer;
+    }
+
+    a-scene { display: block; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Starting camera…</p>
+</div>
+
+<div id="tap-start">
+  <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="28" cy="28" r="27" stroke="white" stroke-width="2" stroke-opacity="0.4"/>
+    <polygon points="22,18 40,28 22,38" fill="white"/>
+  </svg>
+  <p>Point your camera at the artwork<br>and tap to enable sound</p>
+  <small>Tap anywhere to continue</small>
+</div>
+
+<div id="cam-error">
+  <h2>Camera Required</h2>
+  <p>Allow camera access in your browser settings, then reload the page.</p>
+  <button onclick="location.reload()">Reload</button>
+</div>
+
+<a-scene
+  mindar-image="imageTargetSrc: targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; maxTrack: 9"
+  embedded
+  color-space="sRGB"
+  renderer="colorManagement: true; physicallyCorrectLights: true"
+  vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false"
+>
+  <a-assets>
+    <!-- Videos sourced from original 8th Wall app (src/assets/) -->
+    <video id="v0" src="src/assets/1.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v1" src="src/assets/2.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v2" src="src/assets/3.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v3" src="src/assets/4.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v4" src="src/assets/5.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v5" src="src/assets/6.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v6" src="src/assets/7.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v7" src="src/assets/8.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v8" src="src/assets/9.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+  </a-assets>
+
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+  <!-- Dimensions match original 8th Wall xrextras-target-video-fade values -->
+
+  <!-- 1_target → 1.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 0">
+    <a-video src="#v0" position="0 0 0.001" width="1.35" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- 2_target → 2.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 1">
+    <a-video src="#v1" position="0 0 0.001" width="1.045" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- 3_target → 3.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 2">
+    <a-video src="#v2" position="0 0 0.001" width="1.11" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- 4_target → 4.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 3">
+    <a-video src="#v3" position="0 0 0.001" width="1.05" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- 5_target → 5.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 4">
+    <a-video src="#v4" position="0 0 0.001" width="1.4" height="1.075" play-on-target></a-video>
+  </a-entity>
+
+  <!-- 6_target → 6.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 5">
+    <a-video src="#v5" position="0 0 0.001" width="1.45" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- 7_target → 7.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 6">
+    <a-video src="#v6" position="0 0 0.001" width="1.33" height="1.065" play-on-target></a-video>
+  </a-entity>
+
+  <!-- 8_target → 8.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 7">
+    <a-video src="#v7" position="0 0 0.001" width="1.12" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- 9_target → 9.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 8">
+    <a-video src="#v8" position="0 0 0.001" width="1.45" height="1.13" play-on-target></a-video>
+  </a-entity>
+</a-scene>
+
+<script>
+  AFRAME.registerComponent('play-on-target', {
+    init() {
+      const video = document.querySelector(this.el.getAttribute('src'));
+      const target = this.el.parentEl;
+      target.addEventListener('targetFound', () => {
+        if (video) video.play().catch(() => {});
+      });
+      target.addEventListener('targetLost', () => {
+        if (video) video.pause();
+      });
+    }
+  });
+
+  const scene   = document.querySelector('a-scene');
+  const loading  = document.getElementById('loading');
+  const tapStart = document.getElementById('tap-start');
+  const camError = document.getElementById('cam-error');
+
+  scene.addEventListener('arReady', () => {
+    loading.style.display = 'none';
+    tapStart.classList.add('show');
+  });
+
+  scene.addEventListener('arError', () => {
+    loading.style.display = 'none';
+    camError.classList.add('show');
+  });
+
+  tapStart.addEventListener('click', () => {
+    tapStart.classList.remove('show');
+    document.querySelectorAll('video').forEach(v => { v.muted = false; });
+  });
+</script>
+</body>
+</html>

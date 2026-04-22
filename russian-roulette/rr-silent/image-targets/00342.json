@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/00342_target.jpeg",
+  "name": "00342",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 240,
+    "width": 1440,
+    "height": 1920,
+    "isRotated": false,
+    "originalWidth": 1920,
+    "originalHeight": 1920
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": false,
+  "created": 1667774014143,
+  "updated": 1667774383215
+}

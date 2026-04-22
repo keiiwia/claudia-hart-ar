@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Digital Combines AR</title>
+
+  <!--
+  ══════════════════════════════════════════════════════════
+  SETUP CHECKLIST — Digital Combines (Holland catalog, Friday)
+  ══════════════════════════════════════════════════════════
+  1. Compile targets at: https://hiukim.github.io/mind-ar-js-doc/tools/compiler
+     Upload target images IN THIS EXACT ORDER (index = position in list):
+       index 0 → targets/digital-combines-image-targets/ZigZagClothNoise_target.jpeg
+       index 1 → targets/digital-combines-image-targets/WeirdEastern_target.jpeg
+       index 2 → targets/digital-combines-image-targets/RedArp_target.jpeg
+       index 3 → targets/digital-combines-image-targets/QR_1000DPI_target.jpeg
+       index 4 → targets/digital-combines-image-targets/Random-Glitch-Plate_target.png
+       index 5 → targets/digital-combines-image-targets/MirrorGlitch_9.1inch_target.jpeg
+       index 6 → targets/digital-combines-image-targets/LinearLeather_9.1inch_target.jpeg
+       index 7 → targets/digital-combines-image-targets/emoji-tartan_target.jpeg
+     Save output as: targets/targets.mind
+
+  2. Drop MP4 videos into videos/ (filenames are exact — no changes needed):
+       videos/LittleRedRandom_LozengeAugment.mp4
+       videos/CellularPacMan_Lozenge.mp4
+       videos/BigRedNudeSquare_augment.mp4
+       videos/QR_Circle_Augment.mp4
+       videos/RandomGlitche_Square_HalfElipse_1.mp4
+       videos/MirrorGlitch_WithElipseCut_Augment.mp4
+       videos/LinearLeather_Square_Augment.mp4
+       videos/EmojiTartan_Square_Augment.mp4
+
+  3. Video aspect ratios (adjust height= on a-video if needed):
+       - Square videos (height="1"):        BigRedNudeSquare, LinearLeather, EmojiTartan
+       - Lozenge/shaped (height="1"):       LittleRedRandom, CellularPacMan — adjust if clipped
+       - Mixed shapes (height="1"):         QR_Circle, RandomGlitche, MirrorGlitch
+     Currently all set to width="1" height="1" (square). Tweak per video if needed.
+  ══════════════════════════════════════════════════════════
+  -->
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+
+    #loading {
+      position: fixed; inset: 0; z-index: 100;
+      background: #000; color: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading p { font-size: 14px; opacity: 0.6; letter-spacing: 0.03em; }
+
+    #tap-start {
+      position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.65);
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+      color: #fff; font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    #tap-start.show { display: flex; }
+    #tap-start svg { opacity: 0.9; }
+    #tap-start p { font-size: 16px; text-align: center; padding: 0 32px; line-height: 1.5; opacity: 0.85; }
+    #tap-start small { font-size: 12px; opacity: 0.5; }
+
+    #cam-error {
+      position: fixed; inset: 0; z-index: 101;
+      background: #000; color: #fff;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      text-align: center; padding: 32px;
+    }
+    #cam-error.show { display: flex; }
+    #cam-error h2 { font-size: 20px; font-weight: 600; }
+    #cam-error p { font-size: 14px; opacity: 0.65; line-height: 1.6; max-width: 280px; }
+    #cam-error button {
+      margin-top: 8px; padding: 10px 24px;
+      background: #fff; color: #000;
+      border: none; border-radius: 20px;
+      font-size: 14px; cursor: pointer;
+    }
+
+    a-scene { display: block; width: 100%; height: 100%; }
+  </style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Starting camera…</p>
+</div>
+
+<div id="tap-start">
+  <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="28" cy="28" r="27" stroke="white" stroke-width="2" stroke-opacity="0.4"/>
+    <polygon points="22,18 40,28 22,38" fill="white"/>
+  </svg>
+  <p>Point your camera at the artwork<br>and tap to enable sound</p>
+  <small>Tap anywhere to continue</small>
+</div>
+
+<div id="cam-error">
+  <h2>Camera Required</h2>
+  <p>Allow camera access in your browser settings, then reload the page.</p>
+  <button onclick="location.reload()">Reload</button>
+</div>
+
+<a-scene
+  mindar-image="imageTargetSrc: targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; maxTrack: 8"
+  embedded
+  color-space="sRGB"
+  renderer="colorManagement: true; physicallyCorrectLights: true"
+  vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false"
+>
+  <a-assets>
+    <video id="v0" src="videos/LittleRedRandom_LozengeAugment.mp4"        muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v1" src="videos/CellularPacMan_Lozenge.mp4"                muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v2" src="videos/BigRedNudeSquare_augment.mp4"              muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v3" src="videos/QR_Circle_Augment.mp4"                     muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v4" src="videos/RandomGlitche_Square_HalfElipse_1.mp4"    muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v5" src="videos/MirrorGlitch_WithElipseCut_Augment.mp4"   muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v6" src="videos/LinearLeather_Square_Augment.mp4"          muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v7" src="videos/EmojiTartan_Square_Augment.mp4"            muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+  </a-assets>
+
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+  <!-- ZigZagClothNoise_target → LittleRedRandom_LozengeAugment.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 0">
+    <a-video src="#v0" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- WeirdEastern_target → CellularPacMan_Lozenge.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 1">
+    <a-video src="#v1" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- RedArp_target → BigRedNudeSquare_augment.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 2">
+    <a-video src="#v2" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- QR_1000DPI_target → QR_Circle_Augment.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 3">
+    <a-video src="#v3" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- Random-Glitch-Plate_target → RandomGlitche_Square_HalfElipse_1.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 4">
+    <a-video src="#v4" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- MirrorGlitch_9.1inch_target → MirrorGlitch_WithElipseCut_Augment.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 5">
+    <a-video src="#v5" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- LinearLeather_9.1inch_target → LinearLeather_Square_Augment.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 6">
+    <a-video src="#v6" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  </a-entity>
+
+  <!-- emoji-tartan_target → EmojiTartan_Square_Augment.mp4 -->
+  <a-entity mindar-image-target="targetIndex: 7">
+    <a-video src="#v7" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  </a-entity>
+</a-scene>
+
+<script>
+  AFRAME.registerComponent('play-on-target', {
+    init() {
+      const video = document.querySelector(this.el.getAttribute('src'));
+      const target = this.el.parentEl;
+      target.addEventListener('targetFound', () => {
+        if (video) video.play().catch(() => {});
+      });
+      target.addEventListener('targetLost', () => {
+        if (video) video.pause();
+      });
+    }
+  });
+
+  const scene   = document.querySelector('a-scene');
+  const loading  = document.getElementById('loading');
+  const tapStart = document.getElementById('tap-start');
+  const camError = document.getElementById('cam-error');
+
+  scene.addEventListener('arReady', () => {
+    loading.style.display = 'none';
+    tapStart.classList.add('show');
+  });
+
+  scene.addEventListener('arError', () => {
+    loading.style.display = 'none';
+    camError.classList.add('show');
+  });
+
+  tapStart.addEventListener('click', () => {
+    tapStart.classList.remove('show');
+    document.querySelectorAll('video').forEach(v => { v.muted = false; });
+  });
+</script>
+</body>
+</html>

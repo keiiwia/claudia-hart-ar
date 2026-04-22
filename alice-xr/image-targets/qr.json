@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/qr_target.jpeg",
+  "name": "qr",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 0,
+    "width": 900,
+    "height": 1200,
+    "isRotated": false,
+    "originalWidth": 900,
+    "originalHeight": 1200
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1752944874441,
+  "updated": 1752944899800
+}
