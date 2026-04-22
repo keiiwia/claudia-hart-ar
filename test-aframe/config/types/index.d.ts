@@ -1,1 +1,1 @@
-import './assets.d'
+import './assets'
