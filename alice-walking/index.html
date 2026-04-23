@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Alice Walking AR</title>
+
+  <!--
+  COMPILER ORDER (index must match targetIndex below — assumed alphabetical):
+    0→AsciiGirls  1→AsciiRose  2→BigRedGirl  3→CellularPackMan
+    4→EmojiTartan  5→LittleRedRandom  6→MirrorGlitch  7→PaintEffects
+    8→QR_Swirl  9→RandomGlitch  10→StrawEffects  11→linear-leather
+  Source jpegs: targets/alice-walking-image-targets/ or image-targets/
+  Output: alice-walking/image-targets/targets.mind
+  Videos: src/assets/augments/
+  -->
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <script>
+    AFRAME.registerComponent('play-on-target', {
+      init() {
+        const video = document.querySelector(this.el.getAttribute('src'));
+        const target = this.el.parentEl;
+        target.addEventListener('targetFound', () => {
+          if (!window.arUserReady) return;
+          if ((localStorage.getItem('ar-track-mode') || 'single') === 'single') {
+            document.querySelectorAll('a-assets video').forEach(v => { if (v !== video) v.pause(); });
+          }
+          if (video) { video.muted = true; video.play().then(() => { video.muted = false; }).catch(() => {}); }
+        });
+        target.addEventListener('targetLost', () => { if (video) video.pause(); });
+      }
+    });
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: transparent; }
+
+    #loading {
+      position: fixed; inset: 0; z-index: 100;
+      background: #000; color: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading p { font-size: 14px; opacity: 0.6; letter-spacing: 0.03em; }
+
+    #tap-start {
+      position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.65);
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+      color: #fff; font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    #tap-start.show { display: flex; }
+    #tap-start p { font-size: 16px; text-align: center; padding: 0 32px; line-height: 1.5; opacity: 0.85; }
+    #tap-start small { font-size: 12px; opacity: 0.5; }
+
+    #cam-error {
+      position: fixed; inset: 0; z-index: 101;
+      background: #000; color: #fff;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      text-align: center; padding: 32px;
+    }
+    #cam-error.show { display: flex; }
+    #cam-error h2 { font-size: 20px; font-weight: 600; }
+    #cam-error p { font-size: 14px; opacity: 0.65; line-height: 1.6; max-width: 280px; }
+    #cam-error button {
+      margin-top: 8px; padding: 10px 24px;
+      background: #fff; color: #000;
+      border: none; border-radius: 20px; font-size: 14px; cursor: pointer;
+    }
+
+    #mode-toggle { position: fixed; bottom: 20px; right: 20px; z-index: 102; display: none; }
+    #mode-toggle button {
+      background: rgba(0,0,0,0.55); color: #fff;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 20px;
+      padding: 7px 15px; font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Starting camera…</p>
+</div>
+
+<div id="tap-start">
+  <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+    <circle cx="28" cy="28" r="27" stroke="white" stroke-width="2" stroke-opacity="0.4"/>
+    <polygon points="22,18 40,28 22,38" fill="white"/>
+  </svg>
+  <p>Point your camera at the artwork<br>and tap to enable sound</p>
+  <small>Tap anywhere to continue</small>
+</div>
+
+<div id="cam-error">
+  <h2>Camera Required</h2>
+  <p>Allow camera access in your browser settings, then reload the page.</p>
+  <button onclick="location.reload()">Reload</button>
+</div>
+
+<div id="mode-toggle"><button id="toggle-btn" onclick="toggleMode()"></button></div>
+
+<a-scene
+  mindar-image="imageTargetSrc: image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; warmupTolerance: 2; missTolerance: 10; maxTrack: 12"
+  color-space="sRGB"
+  renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true"
+  vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false"
+>
+  <a-assets>
+    <video id="v0"  src="src/assets/augments/AsciiGirls.mp4"     muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v1"  src="src/assets/augments/AsciiRose.mp4"      muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v2"  src="src/assets/augments/BigRedGirl.mp4"     muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v3"  src="src/assets/augments/CellularPackMan.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v4"  src="src/assets/augments/EmojiTartan.mp4"    muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v5"  src="src/assets/augments/LittleRedRandom.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v6"  src="src/assets/augments/MirrorGlitch.mp4"   muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v7"  src="src/assets/augments/PaintEffects.mp4"   muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v8"  src="src/assets/augments/QR_Swirl.mp4"       muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v9"  src="src/assets/augments/RandomGlitch.mp4"   muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v10" src="src/assets/augments/StrawEffects.mp4"   muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v11" src="src/assets/augments/linear-leather.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+  </a-assets>
+
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+  <a-entity mindar-image-target="targetIndex: 0"><!-- AsciiGirls -->
+    <a-video src="#v0"  position="0 0 0.001" width="1.35" height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 1"><!-- AsciiRose -->
+    <a-video src="#v1"  position="0 0 0.001" width="1.35" height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 2"><!-- BigRedGirl -->
+    <a-video src="#v2"  position="0 0 0.001" width="1.35" height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 3"><!-- CellularPackMan -->
+    <a-video src="#v3"  position="0 0 0.001" width="1"    height="1.3"  play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 4"><!-- EmojiTartan -->
+    <a-video src="#v4"  position="0 0 0.001" width="1.35" height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 5"><!-- LittleRedRandom -->
+    <a-video src="#v5"  position="0 0 0.001" width="1"    height="1.2"  play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 6"><!-- MirrorGlitch -->
+    <a-video src="#v6"  position="0 0 0.001" width="1.35" height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 7"><!-- PaintEffects -->
+    <a-video src="#v7"  position="0 0 0.001" width="1.35" height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 8"><!-- QR_Swirl -->
+    <a-video src="#v8"  position="0 0 0.001" width="1.35" height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 9"><!-- RandomGlitch -->
+    <a-video src="#v9"  position="0 0 0.001" width="1"    height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 10"><!-- StrawEffects -->
+    <a-video src="#v10" position="0 0 0.001" width="0.75" height="1"    play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 11"><!-- linear-leather -->
+    <a-video src="#v11" position="0 0 0.001" width="1.35" height="1"    play-on-target></a-video>
+  </a-entity>
+</a-scene>
+
+<script>
+  (function() {
+    if ((localStorage.getItem('ar-track-mode') || 'single') === 'single') {
+      const s = document.querySelector('a-scene');
+      s.setAttribute('mindar-image', s.getAttribute('mindar-image').replace(/maxTrack:\s*\d+/, 'maxTrack: 1'));
+    }
+  })();
+</script>
+
+<script>
+  const scene    = document.querySelector('a-scene');
+  const loading  = document.getElementById('loading');
+  const tapStart = document.getElementById('tap-start');
+  const camError = document.getElementById('cam-error');
+
+  function toggleMode() {
+    const cur = localStorage.getItem('ar-track-mode') || 'single';
+    localStorage.setItem('ar-track-mode', cur === 'single' ? 'multi' : 'single');
+    location.reload();
+  }
+
+  function ready() {
+    loading.style.display = 'none';
+    tapStart.classList.add('show');
+    const mode = localStorage.getItem('ar-track-mode') || 'single';
+    document.getElementById('toggle-btn').textContent = mode === 'single' ? '1 target' : 'all targets';
+    document.getElementById('mode-toggle').style.display = 'block';
+  }
+
+  scene.addEventListener('arReady', ready);
+  scene.addEventListener('arError', () => { loading.style.display = 'none'; camError.classList.add('show'); });
+  setTimeout(() => { if (loading.style.display !== 'none') ready(); }, 15000);
+
+  tapStart.addEventListener('click', () => {
+    tapStart.classList.remove('show');
+    window.arUserReady = true;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) { try { new AC().resume(); } catch(e) {} }
+    document.querySelectorAll('a-assets video').forEach(v => { v.muted = false; });
+  });
+</script>
+</body>
+</html>

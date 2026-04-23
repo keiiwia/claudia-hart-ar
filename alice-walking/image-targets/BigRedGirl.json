@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/BigRedGirl_target.jpeg",
+  "name": "BigRedGirl",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 250,
+    "width": 1500,
+    "height": 2000,
+    "isRotated": false,
+    "originalWidth": 2000,
+    "originalHeight": 2000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1752950511894,
+  "updated": 1752950511894
+}

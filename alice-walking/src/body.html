@@ -1,0 +1,188 @@
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+
+<a-scene
+  xrextras-gesture-detector
+  landing-page
+  xrextras-loading
+  xrextras-runtime-error
+  renderer="colorManagement:true; webgl2: true;"
+  xrweb="disableWorldTracking: true">
+  <a-assets>
+    <video
+      id="AsciiGirls"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/AsciiGirls.mp4"></video>
+    <video
+      id="AsciiRose"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/AsciiRose.mp4"></video>
+    <video
+      id="BigRedGirl"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/BigRedGirl.mp4"></video>
+    <video
+      id="CellularPackMan"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/CellularPackMan.mp4"></video>
+    <video
+      id="EmojiTartan"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/EmojiTartan.mp4"></video>
+    <video
+      id="linear-leather"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/linear-leather.mp4"></video>
+    <video
+      id="LittleRedRandom"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/LittleRedRandom.mp4"></video>
+    <video
+      id="MirrorGlitch"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/MirrorGlitch.mp4"></video>
+    <video
+      id="PaintEffects"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/PaintEffects.mp4"></video>
+    <video
+      id="QR_Swirl"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/QR_Swirl.mp4"></video>
+    <video
+      id="RandomGlitch"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/RandomGlitch.mp4"></video>
+    <video
+      id="StrawEffects"
+      autoplay
+      muted
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/augments/StrawEffects.mp4"></video>
+  </a-assets>
+
+  <a-camera position="0 4 10" raycaster="objects: .cantap" cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <xrextras-named-image-target name="AsciiGirls">
+    <xrextras-target-video-fade
+      video="#AsciiGirls"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="AsciiRose">
+    <xrextras-target-video-fade
+      video="#AsciiRose"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="BigRedGirl">
+    <xrextras-target-video-fade
+      video="#BigRedGirl"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="CellularPackMan">
+    <xrextras-target-video-fade
+      video="#CellularPackMan"
+      height="1.3"
+      width="1"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="EmojiTartan">
+    <xrextras-target-video-fade
+      video="#EmojiTartan"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="linear-leather">
+    <xrextras-target-video-fade
+      video="#linear-leather"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="LittleRedRandom">
+    <xrextras-target-video-fade
+      video="#LittleRedRandom"
+      height="1.2"
+      width="1"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="MirrorGlitch">
+    <xrextras-target-video-fade
+      video="#MirrorGlitch"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="PaintEffects">
+    <xrextras-target-video-fade
+      video="#PaintEffects"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="QR_Swirl">
+    <xrextras-target-video-fade
+      video="#QR_Swirl"
+      height="1"
+      width="1.35"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="RandomGlitch">
+    <xrextras-target-video-fade
+      video="#RandomGlitch"
+      height="1"
+      width="1"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="StrawEffects">
+    <xrextras-target-video-fade
+      video="#StrawEffects"
+      height="1"
+      width="0.75"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+</a-scene>

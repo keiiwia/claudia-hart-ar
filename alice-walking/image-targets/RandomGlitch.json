@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/RandomGlitch_target.jpeg",
+  "name": "RandomGlitch",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 356,
+    "width": 1451,
+    "height": 1934,
+    "isRotated": false,
+    "originalWidth": 2000,
+    "originalHeight": 1934
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1753795529044,
+  "updated": 1753795529044
+}
