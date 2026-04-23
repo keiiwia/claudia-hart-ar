@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/WeirdEastern_target.jpeg",
+  "name": "WeirdEastern",
+  "type": "PLANAR",
+  "properties": {
+    "top": 8,
+    "left": 0,
+    "width": 889,
+    "height": 1185,
+    "isRotated": false,
+    "originalWidth": 889,
+    "originalHeight": 1200
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1673293036572,
+  "updated": 1673293057517
+}

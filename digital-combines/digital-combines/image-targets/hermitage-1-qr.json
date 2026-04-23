@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/hermitage-1-qr_target.png",
+  "name": "hermitage-1-qr",
+  "type": "PLANAR",
+  "properties": {
+    "top": 66,
+    "left": 0,
+    "width": 800,
+    "height": 1067,
+    "isRotated": false,
+    "originalWidth": 800,
+    "originalHeight": 1200
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": false,
+  "created": 1682101185307,
+  "updated": 1682101197446
+}

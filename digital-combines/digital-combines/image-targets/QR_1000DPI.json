@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/QR_1000DPI_target.jpeg",
+  "name": "QR_1000DPI",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 125,
+    "width": 750,
+    "height": 1000,
+    "isRotated": false,
+    "originalWidth": 1000,
+    "originalHeight": 1000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": false,
+  "created": 1673295771986,
+  "updated": 1673295771986
+}

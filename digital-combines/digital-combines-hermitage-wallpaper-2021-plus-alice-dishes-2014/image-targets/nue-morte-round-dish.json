@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/nue-morte-round-dish_target.jpeg",
+  "name": "nue-morte-round-dish",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 0,
+    "width": 994,
+    "height": 1325,
+    "isRotated": false,
+    "originalWidth": 994,
+    "originalHeight": 1325
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1752939531765,
+  "updated": 1752939531765
+}

@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/emoji-tartan_target.jpeg",
+  "name": "emoji-tartan",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 192,
+    "width": 1500,
+    "height": 2000,
+    "isRotated": false,
+    "originalWidth": 1989,
+    "originalHeight": 2000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": false,
+  "created": 1673307814913,
+  "updated": 1673307814913
+}

@@ -8,35 +8,38 @@
 
   <!--
   ══════════════════════════════════════════════════════════
-  SETUP CHECKLIST — Russian Roulette (English variant)
+  SETUP CHECKLIST — Russian Roulette
   ══════════════════════════════════════════════════════════
-  Videos already exist in: russian-roulette/rr-english/src/assets/
-    og2.mp4 – og10.mp4 (og5.mp4 is not used)
+  Videos exist in: russian-roulette/rr-english/src/assets/
+    og2.mp4, og3.mp4, og4.mp4, og7.mp4, og8.mp4, og9.mp4, og10.mp4
+
+  The image targets are shared across all language variants.
+  Source jpegs for compiling are in any of: rr-english/image-targets/,
+  rr-chinese/image-targets/, or rr-silent/image-targets/ (all identical).
 
   Compile targets at: https://hiukim.github.io/mind-ar-js-doc/tools/compiler
-  Upload target images IN THIS ORDER:
-    index 0 → russian-roulette/rr-english/image-targets/00060_target.jpeg
-    index 1 → russian-roulette/rr-english/image-targets/00113_target.jpeg
-    index 2 → russian-roulette/rr-english/image-targets/00182_target.jpeg
-    index 3 → russian-roulette/rr-english/image-targets/00225-v2_target.jpeg
-    index 4 → russian-roulette/rr-english/image-targets/00313_target.jpeg
-    index 5 → russian-roulette/rr-english/image-targets/00387_target.jpeg
-    index 6 → russian-roulette/rr-english/image-targets/00806_target.jpeg
-    index 7 → russian-roulette/rr-english/image-targets/00342_target.jpeg
+  Upload target images IN THIS ORDER (8 targets):
+    index 0 → use 00060_target.jpeg from rr-english/image-targets/ (all variants are identical)
+    index 1 → 00113_target.jpeg
+    index 2 → 00182_target.jpeg
+    index 3 → 00225_target.jpeg  (NOTE: 00225-v2_target.jpeg is the same image)
+    index 4 → 00313_target.jpeg
+    index 5 → 00342_target.jpeg
+    index 6 → 00387_target.jpeg
+    index 7 → 00806_target.jpeg
   Save output as: russian-roulette/targets/targets.mind
 
-  Target → video mapping (from original 8th Wall body.html):
+  Target → video mapping:
     00060 (sun/face)    → og3.mp4
     00113               → og2.mp4
     00182 (wing crest)  → og9.mp4
-    00225-v2 (swirl)    → og4.mp4
+    00225 (swirl)       → og4.mp4
     00313 (att)         → og6.mp4
+    00342 (shield)      → og10.mp4
     00387 (bitcoin)     → og8.mp4
     00806 (bird crest)  → og7.mp4
-    00342 (shield)      → og10.mp4
 
-  For CHINESE: swap image-targets → rr-chinese/image-targets/ (same filenames)
-  For SILENT:  swap image-targets → rr-silent/image-targets/ (same filenames)
+  To swap language: update video src paths to rr-chinese/src/assets/ or rr-silent/src/assets/
   ══════════════════════════════════════════════════════════
   -->
 
@@ -127,55 +130,55 @@
   device-orientation-permission-ui="enabled: false"
 >
   <a-assets>
-    <!-- Videos sourced from original 8th Wall app (rr-english/src/assets/) -->
+    <!-- To use a different language, change rr-english → rr-chinese or rr-silent -->
     <video id="v0" src="rr-english/src/assets/og3.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
     <video id="v1" src="rr-english/src/assets/og2.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
     <video id="v2" src="rr-english/src/assets/og9.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
     <video id="v3" src="rr-english/src/assets/og4.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
     <video id="v4" src="rr-english/src/assets/og6.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v5" src="rr-english/src/assets/og8.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v6" src="rr-english/src/assets/og7.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v7" src="rr-english/src/assets/og10.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v5" src="rr-english/src/assets/og10.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v6" src="rr-english/src/assets/og8.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v7" src="rr-english/src/assets/og7.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
   </a-assets>
 
   <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-  <!-- 00060_target (sun/face) → og3.mp4 -->
+  <!-- 00060 (sun/face) → og3.mp4 -->
   <a-entity mindar-image-target="targetIndex: 0">
     <a-video src="#v0" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
   </a-entity>
 
-  <!-- 00113_target → og2.mp4 -->
+  <!-- 00113 → og2.mp4 -->
   <a-entity mindar-image-target="targetIndex: 1">
     <a-video src="#v1" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
   </a-entity>
 
-  <!-- 00182_target (wing crest) → og9.mp4 -->
+  <!-- 00182 (wing crest) → og9.mp4 -->
   <a-entity mindar-image-target="targetIndex: 2">
     <a-video src="#v2" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
   </a-entity>
 
-  <!-- 00225-v2_target (spiky swirl) → og4.mp4 -->
+  <!-- 00225 (swirl) → og4.mp4 -->
   <a-entity mindar-image-target="targetIndex: 3">
     <a-video src="#v3" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
   </a-entity>
 
-  <!-- 00313_target (att) → og6.mp4 -->
+  <!-- 00313 (att) → og6.mp4 -->
   <a-entity mindar-image-target="targetIndex: 4">
     <a-video src="#v4" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
   </a-entity>
 
-  <!-- 00387_target (bitcoin) → og8.mp4 -->
+  <!-- 00342 (shield) → og10.mp4 -->
   <a-entity mindar-image-target="targetIndex: 5">
     <a-video src="#v5" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
   </a-entity>
 
-  <!-- 00806_target (bird crest) → og7.mp4 -->
+  <!-- 00387 (bitcoin) → og8.mp4 -->
   <a-entity mindar-image-target="targetIndex: 6">
     <a-video src="#v6" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
   </a-entity>
 
-  <!-- 00342_target (shield) → og10.mp4 -->
+  <!-- 00806 (bird crest) → og7.mp4 -->
   <a-entity mindar-image-target="targetIndex: 7">
     <a-video src="#v7" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
   </a-entity>

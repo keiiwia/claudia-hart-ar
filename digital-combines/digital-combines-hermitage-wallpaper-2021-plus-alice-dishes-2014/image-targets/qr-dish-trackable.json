@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/qr-dish-trackable_target.jpeg",
+  "name": "qr-dish-trackable",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 0,
+    "width": 750,
+    "height": 1000,
+    "isRotated": false,
+    "originalWidth": 750,
+    "originalHeight": 1000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1752939539410,
+  "updated": 1752939539410
+}

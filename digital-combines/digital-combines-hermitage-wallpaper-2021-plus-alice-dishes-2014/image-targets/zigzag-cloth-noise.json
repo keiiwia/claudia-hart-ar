@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/zigzag-cloth-noise_target.jpeg",
+  "name": "zigzag-cloth-noise",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 0,
+    "width": 750,
+    "height": 1000,
+    "isRotated": false,
+    "originalWidth": 750,
+    "originalHeight": 1000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1752939576157,
+  "updated": 1752939576157
+}

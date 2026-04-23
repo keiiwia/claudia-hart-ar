@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/Random-Glitch-Plate_target.png",
+  "name": "Random-Glitch-Plate",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 125,
+    "width": 750,
+    "height": 1000,
+    "isRotated": false,
+    "originalWidth": 1000,
+    "originalHeight": 1000
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": false,
+  "created": 1673296268446,
+  "updated": 1673296402960
+}

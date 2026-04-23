@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/hermitage-combined-1_target.png",
+  "name": "hermitage-combined-1",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 3,
+    "width": 793,
+    "height": 1057,
+    "isRotated": false,
+    "originalWidth": 800,
+    "originalHeight": 1057
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": false,
+  "created": 1682102345667,
+  "updated": 1682102345667
+}

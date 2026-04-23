@@ -1,0 +1,303 @@
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+
+<a-scene
+  xrextras-gesture-detector
+  landing-page
+  xrextras-loading
+  xrextras-runtime-error
+  xrweb="disableWorldTracking:true;"
+  renderer="colorManagement:true; webgl2: true;">
+  <a-assets>
+    <!-- open statement button -->
+    <img id="statement-btn" src="assets/open-statement-btn.png" />
+
+    <!-- OG 6b Thumbnail -->
+    <img id="OG6b_ForRedArpNoise-jpg" src="assets/OG6b_ForRedArpNoiseplaybtn.jpg" />
+    <!-- OG 6b Video -->
+    <video
+      id="OG6b_ForRedArpNoise-mp4"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/OG6b_ForRedArpNoise.mp4"></video>
+
+    <!-- OG 8 Thumbnail -->
+    <img id="OG_8_ForWeirdEasternNoise-jpg" src="assets/OG_8_ForWeirdEasternNoiseplaybtn.jpg" />
+    <!-- OG 8 Video -->
+    <video
+      id="OG_8_ForWeirdEasternNoise-mp4"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/OG_8_ForWeirdEasternNoise.mp4"></video>
+
+    <!-- OG 15 Thumbnail -->
+    <img id="OG-15_ForZigZagClothNoise-jpg" src="assets/OG-15_ForZigZagClothNoiseplaybtn.jpg" />
+    <!-- OG 15 Thumbnail -->
+    <video
+      id="OG-15_ForZigZagClothNoise-mp4"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/OG-15_ForZigZagClothNoise.mp4"></video>
+
+    <!-- OG 16 Thumbnail -->
+    <img id="OG-16_ForJoyfulNoiseOrange-jpg" src="assets/OG-16_ForJoyfulNoiseOrangeplaybtn.jpg" />
+    <!-- OG 16 Thumbnail -->
+    <video
+      id="OG-16_ForJoyfulNoiseOrange-mp4"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/OG-16_ForJoyfulNoiseOrange.mp4"></video>
+
+    <img id="OG-16_ForJoyfulNoiseOrange-jpg" src="assets/OG-16_ForJoyfulNoiseOrangeplaybtn.jpg" />
+    <video
+      id="OG-16_ForJoyfulNoiseOrange-mp4"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/OG-16_ForJoyfulNoiseOrange.mp4"></video>
+
+    <a-asset-item
+      id="mirror-glitch-glb"
+      src="assets/glb/HenriLafitLatour_scale_app.glb"></a-asset-item>
+    <a-asset-item
+      id="Niio1_GuitarCombine-glb"
+      src="assets/glb/NiioStillLifeGuitar_scale_app.glb"></a-asset-item>
+    <!-- <a-asset-item id="NueMorteFlowerVase-glb" src="assets/NueMorteFlowerVase.glb"></a-asset-item> -->
+
+    <a-asset-item
+      id="FLowerMatrixArrangment_small_shadowfix-glb"
+      src="assets/glb/FLowerMatrixArrangment_small_shadowfix.glb"></a-asset-item>
+
+    <a-asset-item
+      id="GlitchPicassosCombined_final-glb"
+      src="assets/glb/RandomGlitchPicassos_scale_app.glb"></a-asset-item>
+    <a-asset-item
+      id="Niio2StillLife-glb"
+      src="assets/glb/NiioStillLifeCaryatid_scale_app.glb"></a-asset-item>
+    <a-asset-item
+      id="nue-morte-flower-vase-glb"
+      src="assets/NueMorteFlowerVase-v1.glb"></a-asset-item>
+  </a-assets>
+
+  <a-camera position="0 4 10" raycaster="objects: .cantap" cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+
+  <xrextras-named-image-target name="WeirdEastern">
+    <!-- <a-entity 
+      xrextras-play-video="video: #OG_8_ForWeirdEasternNoise-mp4; thumb: #OG_8_ForWeirdEasternNoise-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity> -->
+    <xrextras-target-video-fade
+      video="#OG_8_ForWeirdEasternNoise-mp4"
+      height="1"
+      width="1.33"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="ZigZagClothNoise">
+    <!-- <a-entity 
+      xrextras-play-video="video: #OG-15_ForZigZagClothNoise-mp4; thumb: #OG-15_ForZigZagClothNoise-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity> -->
+    <xrextras-target-video-fade
+      video="#OG-15_ForZigZagClothNoise-mp4"
+      height="1"
+      width="1.33"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="RedArp">
+    <!-- <a-entity 
+      xrextras-play-video="video: #OG6b_ForRedArpNoise-mp4; thumb: #OG6b_ForRedArpNoise-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity> -->
+    <xrextras-target-video-fade
+      video="#OG6b_ForRedArpNoise-mp4"
+      height="1"
+      width="1.33"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="JoyfulNoiseOrange">
+    <!-- <a-entity 
+      xrextras-play-video="video: #OG-16_ForJoyfulNoiseOrange-mp4; thumb: #OG-16_ForJoyfulNoiseOrange-jpg; canstop: true"
+      geometry="primitive: plane; height: 1; width: 1;"
+    ></a-entity> -->
+    <xrextras-target-video-fade
+      video="#OG-16_ForJoyfulNoiseOrange-mp4"
+      height="1"
+      width="1.33"></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <!-- Note: "name:" must be set to the name of the image target uploaded to the 8th Wall Console -->
+
+  <xrextras-named-image-target name="MirrorGlitch_9.1inch">
+    <a-entity scale="45 45 45" rotation="90 0 0" gltf-model="#mirror-glitch-glb"></a-entity>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="LinearLeather_9.1inch">
+    <a-entity scale="45 45 45" rotation="90 0 0" gltf-model="#Niio1_GuitarCombine-glb"></a-entity>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="alpha-circular">
+    <a-entity scale="45 45 45" rotation="90 0 0" gltf-model="#nue-morte-flower-vase-glb"></a-entity>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="QR_1000DPI">
+    <a-entity
+      position="0.1 -0.2 0"
+      scale="0.45 0.45 0.45"
+      rotation="90 0 0"
+      gltf-model="#FLowerMatrixArrangment_small_shadowfix-glb"></a-entity>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="Random-Glitch-Plate">
+    <a-entity
+      scale="45 45 45"
+      rotation="90 0 0"
+      gltf-model="#GlitchPicassosCombined_final-glb"></a-entity>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="emoji-tartan">
+    <a-entity scale="45 45 45" rotation="90 0 0" gltf-model="#Niio2StillLife-glb"></a-entity>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="hermitage-combined-1">
+    <a-entity my-named-image-target="name: hermitage-combined-1"></a-entity>
+  </xrextras-named-image-target>
+</a-scene>
+
+<style>
+  div.statement {
+    position: fixed;
+    width: calc(100% - 40px);
+    height: 80vh;
+    top: 20px;
+    left: 20px;
+    transition: 0.2s all;
+    opacity: 0;
+    transform: translateY(-5px);
+    pointer-events: none;
+  }
+  div.statement.visible {
+    pointer-events: all;
+    opacity: 1;
+    transform: translateY(0px);
+  }
+  div.statement .text-content {
+    background: rgba(255, 255, 255, 1);
+    color: #000;
+    padding: 20px;
+    font-family: 'georgia', sans-serif;
+    height: 60vh;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    overflow-y: scroll;
+    line-height: 1.5em;
+    font-size: 18px;
+    display: none;
+  }
+  div.statement .text-content.visible {
+    display: block;
+  }
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .buttons button {
+    width: 100%;
+    height: 40px;
+    border: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-family: sans-serif;
+    border-radius: 5px;
+    letter-spacing: 0.1em;
+  }
+  div.statement .close-modal {
+    height: 10vh;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: bold;
+  }
+  p {
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+</style>
+
+<div id="statement-1" class="statement">
+  <div class="buttons">
+    <button id="show-intro">Introduction</button>
+    <button id="show-memento">Memento Mori</button>
+  </div>
+  <div id="text-content-1" class="text-content visible">
+    <p>
+      These works are Digital Combines, a term inspired by Robert Rauschenberg’s famous Combine
+      paintings - half sculpture and half painting. His Combines were an idea diffcult for the art
+      world to imagine in the 1960s. Mine are also hybrids: half simulated painting and half NFT
+      digital file. The text you are reading now IS that digital file. This short text has also been
+      minted and appended to the NFT smart contract, guaranteeing that my Combine is unique. I
+      married the tangible and the physical together with my tongue in cheek, meant ironically. To
+      explain how my Combine evolved I need to tell you its back story.
+    </p>
+    <p>
+      In 2020, I imagined myself as a forger, painting copies of famous works by the masters of
+      twentieth-century modernism. My goal was to mint these forgeries, thereby reproducing them as
+      unique digital objects and securing by contract my individual authorial rights. Later that
+      year, I fabricated this series. I invented an elaborate process, involving a
+      computer-controlled air-brush machine. First, I built a series of 3D computer models. Then I
+      “painted” them in a software program with a digital brush that simulated watercolors. I
+      arranged the models to create 3D still lifes in virtual-reality rooms. Then I rendered out
+      these set-ups as the source-files needed to drive my machine. At last, the machine and I
+      produced the paintings. They were illusionistic and uncanny, like trompe-l’oeil paintings of
+      the nineteenth century. I exhibited my first forgery with its source file, which was the
+      digital picture I minted. I conceived of these elements as two halves of a mixed-reality whole
+      I called a “digital combine.”
+    </p>
+    <p>
+      The more I thought about this combine, the more I realized that my true source file was not
+      the digital one I described above but the story I am currently telling. A digital combine is
+      not a forgery or a version, but rather a real poetic resolution of the mind-body problem: a
+      concept plus a tangible object and the historical narrative that connects them.
+    </p>
+    <p>
+      My Combines mix tangible materials—like paint, pure pigment and wood —with a small digital
+      file. That file needs to be VERY small so it can be encrypted as part of an NFT smart
+      contract. My smart contract, a modification of the standard ERC-72, specifies that a
+      digital-combine piece consists of both digital and tangible elements (a body and a no-body),
+      together forming an impossible paradoxical object - that thing we call “art.”
+    </p>
+  </div>
+  <div id="text-content-2" class="text-content">
+    <p>
+      Digital Combines are memento mori, meditations on decay. These particular works are inspired
+      by appropriated photographs, shot during WWII in the Louvre in Paris and in the Hermitage -
+      during the blockade of Leningrad. At this time, Allied troops were retreating from the Nazis,
+      who idolized the Western painting canon and so were systematically pillaging. Both museums,
+      currently pitted in opposition as the West restarts a new version of the mid twentieth-century
+      Cold War, are
+    </p>
+  </div>
+</div>

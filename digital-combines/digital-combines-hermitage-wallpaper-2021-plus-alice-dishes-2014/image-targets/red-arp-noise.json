@@ -1,0 +1,18 @@
+{
+  "imagePath": "image-targets/red-arp-noise_target.jpeg",
+  "name": "red-arp-noise",
+  "type": "PLANAR",
+  "properties": {
+    "top": 0,
+    "left": 0,
+    "width": 762,
+    "height": 1016,
+    "isRotated": false,
+    "originalWidth": 762,
+    "originalHeight": 1016
+  },
+  "userMetadataIsJson": true,
+  "loadAutomatically": true,
+  "created": 1752939560133,
+  "updated": 1752939560133
+}
