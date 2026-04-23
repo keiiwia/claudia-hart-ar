@@ -1,59 +1,96 @@
-# Claudia Hart Web AR (AR.js)
+# Claudia Hart AR
 
-This project is a lightweight web-based AR experience using **AR.js (A-Frame)**, intended to host materials and image targets migrated from 8th Wall.
+Browser-based AR experiences replacing broken 8th Wall links. No app download required — works directly in a mobile browser via camera. Built with [MindAR.js](https://hiukim.github.io/mind-ar-js-doc/) + A-Frame, deployed on GitHub Pages.
 
-## Getting started
+## Live apps
 
-1. **Install a simple static server** (if you don't already have one):
-   - Node.js: `npm install -g serve` (or use `npx serve`).
-2. **Start a server in this folder**:
-   - From the project root: `serve .` or `python -m http.server 8080`.
-3. **Open in a mobile browser** (or desktop with webcam):
-   - Navigate to `http://localhost:3000` or the port your server reports.
-   - Grant camera permission when asked.
+| App | URL | Status |
+|---|---|---|
+| Machiavelli | `/machiavelli/` | ✅ Ready |
+| Russian Roulette | `/russian-roulette/` | ✅ Ready |
+| Alice XR | `/alice-xr/` | ✅ Ready |
+| Digital Combines | `/digital-combines/` | ✅ Ready |
 
-> AR.js requires serving files over HTTP(S), not from the `file://` protocol.
+## How it works
+
+Each app:
+1. Opens the device camera automatically
+2. Detects printed target images from the catalog/book
+3. Plays an MP4 video overlay on top of the target
+4. Pauses the video when the target leaves the frame
+
+Multiple targets can be active simultaneously.
 
 ## Folder structure
 
-- `index.html` — main AR scene using AR.js (A-Frame).
-- `styles.css` — UI shell & layout styles.
-- `main.js` — small status handling and marker events.
-- **`test-aframe/`** — **preliminary test**: put your migrated 8th Wall target files here (e.g. `target.iset`, `target.fset`, `target.fset3`). The app is wired to load the NFT target from this folder.
-- `targets/` — optional; use for additional image targets later.
-
-## Using migrated 8th Wall image targets
-
-AR.js NFT image tracking expects a set of files (typically `.iset`, `.fset`, `.fset3`) that share the same base filename. For example:
-
-- `targets/example-target.iset`
-- `targets/example-target.fset`
-- `targets/example-target.fset3`
-
-Then in `index.html` the `a-nft` component references the base URL **without the extension**:
-
-```html
-<a-nft
-  type="nft"
-  url="targets/example-target"
-  emitevents="true"
->
-  <!-- 3D content goes here -->
-</a-nft>
+```
+<app-name>/
+  index.html                  ← AR experience (self-contained, no build step)
+  image-targets/
+    targets.mind              ← compiled MindAR target file (all targets combined)
+    <name>.mind               ← individual compiled targets (for reference)
+    <name>_target.jpeg        ← source images used for compilation
+  src/assets/                 ← video files (MP4)
+  videos/                     ← video files for digital-combines
 ```
 
-For the **preliminary test**, put your target files in `test-aframe/` with base name `target` (e.g. `target.iset`, `target.fset`, `target.fset3`). No change to `index.html` needed. If your files use a different base name, change the `a-nft` url in `index.html` to `test-aframe/your-base-name`.
+## Target → video mappings
 
-For other targets:
+### Machiavelli (9 targets)
+Image targets compiled in order `1_target` → `9_target`. Videos: `src/assets/1.mp4` – `9.mp4`.
 
-1. Copy the AR.js-compatible target files into `targets/` or `test-aframe/`.
-2. In `index.html`, add or update an `a-nft` with `url="targets/your-name"` or `url="test-aframe/your-name"`.
-3. Adjust or replace the placeholder 3D content inside the `a-nft` (e.g. swap the box for models, planes with textures, etc.).
+### Russian Roulette (8 targets — English)
+Targets: `00060, 00113, 00182, 00225, 00313, 00342, 00387, 00806`
+Videos in `rr-english/src/assets/`: `og3, og2, og9, og4, og6, og10, og8, og7` (matching target order above).
+To switch language: change video paths in `index.html` to `rr-chinese/` or `rr-silent/`.
 
-If you have **multiple** targets, duplicate the `a-nft` block and point each one to a different `url` value.
+### Alice XR (4 targets)
+| Target | Video |
+|---|---|
+| linear-leather | 9square.mp4 |
+| paint-effects-bamboo | miniature-horse.mp4 |
+| paint-effects-bamboo-inverted | eat-fb.mp4 |
+| qr | cupcake.mp4 |
 
-## Notes
+### Digital Combines (8 targets)
+| Target | Video |
+|---|---|
+| ZigZagClothNoise | LittleRedRandom_LozengeAugment.mp4 |
+| WeirdEastern | CellularPacMan_Lozenge.mp4 |
+| RedArp | BigRedNudeSquare_augment.mp4 |
+| QR_1000DPI | QR_Circle_Augment.mp4 |
+| Random-Glitch-Plate | RandomGlitche_Square_HalfElipse_1.mp4 |
+| MirrorGlitch_9.1inch | MirrorGlitch_WithElipseCut_Augment.mp4 |
+| LinearLeather_9.1inch | LinearLeather_Square_Augment.mp4 |
+| emoji-tartan | EmojiTartan_Square_Augment.mp4 |
 
-- This setup uses the A-Frame build of AR.js via CDN for simplicity.
-- For production or advanced control (e.g., custom Three.js pipeline or performance tuning), you may want to pin AR.js to a specific release and/or self-host the script files.
+## Compiling image targets
 
+Use the [MindAR compiler](https://hiukim.github.io/mind-ar-js-doc/tools/compiler). Upload target images **in the exact order listed in the app's `index.html` comment** — the order determines the `targetIndex` used in the HTML. Save output as `image-targets/targets.mind`.
+
+## Testing locally
+
+```bash
+python3 -m http.server 8080
+# Open http://localhost:8080/machiavelli/
+```
+
+Camera access works on `localhost` without HTTPS. For mobile testing, use the GitHub Pages URL.
+
+## Deployment (GitHub Pages)
+
+Push to `main`. Enable Pages at **Settings → Pages → Branch: main / root**.
+
+Apps are live at `https://keiiwia.github.io/claudia-hart-ar/<app-name>/`.
+
+## QR code redirect
+
+QR codes in printed catalogs were created via qr-code-generator.com (dynamic QR). Log in and update each code's destination URL to the corresponding GitHub Pages URL above. The printed QR code does not need to change.
+
+## Video files & Git LFS
+
+All `.mp4` files are stored in Git LFS (see `.gitattributes`). Large files (>50MB) should be compressed before adding:
+
+```bash
+ffmpeg -i input.mp4 -crf 28 -preset fast -movflags +faststart output.mp4
+```
