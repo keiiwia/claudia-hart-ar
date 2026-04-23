@@ -23,6 +23,7 @@
         const video = document.querySelector(this.el.getAttribute('src'));
         const target = this.el.parentEl;
         target.addEventListener('targetFound', () => {
+          if (!window.arUserReady) return;
           if ((localStorage.getItem('ar-track-mode') || 'single') === 'single') {
             document.querySelectorAll('video').forEach(v => { if (v !== video) v.pause(); });
           }
@@ -116,7 +117,7 @@
 <div id="mode-toggle"><button id="toggle-btn" onclick="toggleMode()"></button></div>
 
 <a-scene
-  mindar-image="imageTargetSrc: russianroulette/image-targets/targets.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; maxTrack: 8"
+  mindar-image="imageTargetSrc: russianroulette/image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; maxTrack: 8"
   color-space="sRGB"
   renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true"
   vr-mode-ui="enabled: false"
@@ -191,31 +192,16 @@
     document.getElementById('mode-toggle').style.display = 'block';
   }
 
-  scene.addEventListener('loaded', () => {
-    loading.style.display = 'none';
-    tapStart.classList.add('show');
-  });
-  setTimeout(() => {
-    if (loading.style.display !== 'none') { loading.style.display = 'none'; tapStart.classList.add('show'); }
-  }, 8000);
+  scene.addEventListener('arReady', ready);
+  scene.addEventListener('arError', () => { loading.style.display = 'none'; camError.classList.add('show'); });
+  setTimeout(() => { if (loading.style.display !== 'none') ready(); }, 15000);
 
   tapStart.addEventListener('click', () => {
     tapStart.classList.remove('show');
+    window.arUserReady = true;
     const AC = window.AudioContext || window.webkitAudioContext;
     if (AC) { try { new AC().resume(); } catch(e) {} }
     document.querySelectorAll('video').forEach(v => { v.muted = false; });
-    scene.systems['mindar-image'].start();
-  });
-
-  scene.addEventListener('arReady', () => {
-    const mode = localStorage.getItem('ar-track-mode') || 'single';
-    document.getElementById('toggle-btn').textContent = mode === 'single' ? '1 target' : 'all targets';
-    document.getElementById('mode-toggle').style.display = 'block';
-  });
-
-  scene.addEventListener('arError', () => {
-    loading.style.display = 'none';
-    camError.classList.add('show');
   });
 </script>
 </body>
