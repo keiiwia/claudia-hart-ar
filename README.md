@@ -1,25 +1,24 @@
 # Claudia Hart AR
 
-Browser-based AR experiences replacing broken 8th Wall links. No app download required — works directly in a mobile browser via camera. Built with [MindAR.js](https://hiukim.github.io/mind-ar-js-doc/) + A-Frame, deployed on GitHub Pages.
+Browser-based AR experiences replacing broken 8th Wall links. Works directly in a mobile browser via camera (works better on iOS Safari vs Chrome) Built with [MindAR.js](https://hiukim.github.io/mind-ar-js-doc/) + A-Frame.
 
 ## Live apps
 
-| App | URL | Status |
-|---|---|---|
-| Machiavelli | `/machiavelli/` | ✅ Ready |
-| Russian Roulette | `/russian-roulette/` | ✅ Ready |
-| Alice XR | `/alice-xr/` | ✅ Ready |
-| Digital Combines | `/digital-combines/` | ✅ Ready |
+| App | URL |
+|---|---|
+| Machiavelli | `/machiavelli/` |
+| Russian Roulette | `/russian-roulette/` |
+| Alice XR | `/alice-xr/` |
+| Digital Combines | `/digital-combines/` |
 
-## How it works
+## Procedure! (Enter with the URLs directly)
 
 Each app:
 1. Opens the device camera automatically
 2. Detects printed target images from the catalog/book
 3. Plays an MP4 video overlay on top of the target
-4. Pauses the video when the target leaves the frame
 
-Multiple targets can be active simultaneously.
+Multiple targets can be active simultaneously. (in-progress)
 
 ## Folder structure
 
@@ -34,7 +33,7 @@ Multiple targets can be active simultaneously.
   videos/                     ← video files for digital-combines
 ```
 
-## Target → video mappings
+## Targeting key
 
 ### Machiavelli (9 targets)
 Image targets compiled in order `1_target` → `9_target`. Videos: `src/assets/1.mp4` – `9.mp4`.
@@ -64,28 +63,24 @@ To switch language: change video paths in `index.html` to `rr-chinese/` or `rr-s
 | LinearLeather_9.1inch | LinearLeather_Square_Augment.mp4 |
 | emoji-tartan | EmojiTartan_Square_Augment.mp4 |
 
-## Compiling image targets
 
-Use the [MindAR compiler](https://hiukim.github.io/mind-ar-js-doc/tools/compiler). Upload target images **in the exact order listed in the app's `index.html` comment** — the order determines the `targetIndex` used in the HTML. Save output as `image-targets/targets.mind`.
-
-## Testing locally
+<!-- ## Testing locally
 
 ```bash
 python3 -m http.server 8080
 # Open http://localhost:8080/machiavelli/
-```
+``` -->
 
-Camera access works on `localhost` without HTTPS. For mobile testing, use the GitHub Pages URL.
 
-## Deployment (GitHub Pages)
+<!-- ## Deployment (GitHub Pages)
 
-Push to `main`. Enable Pages at **Settings → Pages → Branch: main / root**.
+Push to `main`. Enable Pages at **Settings → Pages → Branch: main / root**. -->
 
 Apps are live at `https://keiiwia.github.io/claudia-hart-ar/<app-name>/`.
 
-## QR code redirect
+<!-- ## QR code redirect
 
-QR codes in printed catalogs were created via qr-code-generator.com (dynamic QR). Log in and update each code's destination URL to the corresponding GitHub Pages URL above. The printed QR code does not need to change.
+QR codes in printed catalogs were created via qr-code-generator.com (dynamic QR). Log in and update each code's destination URL to the corresponding GitHub Pages URL above. The printed QR code does not need to change. -->
 
 ## Video files & Git LFS
 
