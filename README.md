@@ -10,6 +10,7 @@ Browser-based AR experiences replacing broken 8th Wall links. Works directly in 
 | Russian Roulette | `/russian-roulette/` |
 | Alice XR | `/alice-xr/` |
 | Digital Combines | `/digital-combines/` |
+| Alice Walking | `/alice-walking/` |
 
 ## Procedure! (Enter with the URLs directly)
 
@@ -51,6 +52,8 @@ To switch language: change video paths in `index.html` to `rr-chinese/` or `rr-s
 | paint-effects-bamboo-inverted | eat-fb.mp4 |
 | qr | cupcake.mp4 |
 
+### Alice Walking (11 targets)
+
 ### Digital Combines (8 targets)
 | Target | Video |
 |---|---|
@@ -84,7 +87,7 @@ QR codes in printed catalogs were created via qr-code-generator.com (dynamic QR)
 
 ## Video files & Git LFS
 
-All `.mp4` files are stored in Git LFS (see `.gitattributes`). Large files (>50MB) should be compressed before adding:
+All `.mp4` files are stored in Git LFS (see `.gitattributes`).
 
 ```bash
 ffmpeg -i input.mp4 -crf 28 -preset fast -movflags +faststart output.mp4
