@@ -22,8 +22,13 @@
       init() {
         const video = document.querySelector(this.el.getAttribute('src'));
         const target = this.el.parentEl;
-        target.addEventListener('targetFound', () => { if (video) video.play().catch(() => {}); });
-        target.addEventListener('targetLost',  () => { if (video) video.pause(); });
+        target.addEventListener('targetFound', () => {
+          if ((localStorage.getItem('ar-track-mode') || 'single') === 'single') {
+            document.querySelectorAll('video').forEach(v => { if (v !== video) v.pause(); });
+          }
+          if (video) video.play().catch(() => {});
+        });
+        target.addEventListener('targetLost', () => { if (video) video.pause(); });
       }
     });
   </script>
@@ -76,6 +81,14 @@
       background: #fff; color: #000;
       border: none; border-radius: 20px; font-size: 14px; cursor: pointer;
     }
+
+    #mode-toggle { position: fixed; bottom: 20px; right: 20px; z-index: 102; display: none; }
+    #mode-toggle button {
+      background: rgba(0,0,0,0.55); color: #fff;
+      border: 1px solid rgba(255,255,255,0.3); border-radius: 20px;
+      padding: 7px 15px; font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
   </style>
 </head>
 <body>
@@ -99,6 +112,8 @@
   <p>Allow camera access in your browser settings, then reload the page.</p>
   <button onclick="location.reload()">Reload</button>
 </div>
+
+<div id="mode-toggle"><button id="toggle-btn" onclick="toggleMode()"></button></div>
 
 <a-scene
   mindar-image="imageTargetSrc: image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; maxTrack: 9"
@@ -151,14 +166,32 @@
 </a-scene>
 
 <script>
+  (function() {
+    if ((localStorage.getItem('ar-track-mode') || 'single') === 'single') {
+      const s = document.querySelector('a-scene');
+      s.setAttribute('mindar-image', s.getAttribute('mindar-image').replace(/maxTrack:\s*\d+/, 'maxTrack: 1'));
+    }
+  })();
+</script>
+
+<script>
   const scene    = document.querySelector('a-scene');
   const loading  = document.getElementById('loading');
   const tapStart = document.getElementById('tap-start');
   const camError = document.getElementById('cam-error');
 
+  function toggleMode() {
+    const cur = localStorage.getItem('ar-track-mode') || 'single';
+    localStorage.setItem('ar-track-mode', cur === 'single' ? 'multi' : 'single');
+    location.reload();
+  }
+
   function ready() {
     loading.style.display = 'none';
     tapStart.classList.add('show');
+    const mode = localStorage.getItem('ar-track-mode') || 'single';
+    document.getElementById('toggle-btn').textContent = mode === 'single' ? '1 target' : 'all targets';
+    document.getElementById('mode-toggle').style.display = 'block';
   }
 
   scene.addEventListener('arReady', ready);
@@ -174,7 +207,10 @@
 
   tapStart.addEventListener('click', () => {
     tapStart.classList.remove('show');
-    document.querySelectorAll('video').forEach(v => { v.muted = false; });
+    document.querySelectorAll('video').forEach(v => {
+      v.muted = false;
+      v.play().then(() => v.pause()).catch(() => {});
+    });
   });
 </script>
 </body>
