@@ -117,7 +117,7 @@
 <div id="mode-toggle"><button id="toggle-btn" onclick="toggleMode()"></button></div>
 
 <a-scene
-  mindar-image="imageTargetSrc: image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; maxTrack: 9"
+  mindar-image="imageTargetSrc: image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; warmupTolerance: 2; missTolerance: 10; maxTrack: 9"
   color-space="sRGB"
   renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true"
   vr-mode-ui="enabled: false"
