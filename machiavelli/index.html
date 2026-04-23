@@ -116,7 +116,7 @@
 <div id="mode-toggle"><button id="toggle-btn" onclick="toggleMode()"></button></div>
 
 <a-scene
-  mindar-image="imageTargetSrc: image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; maxTrack: 9"
+  mindar-image="imageTargetSrc: image-targets/targets.mind; autoStart: false; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; maxTrack: 9"
   color-space="sRGB"
   renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true"
   vr-mode-ui="enabled: false"
@@ -194,23 +194,32 @@
     document.getElementById('mode-toggle').style.display = 'block';
   }
 
-  scene.addEventListener('arReady', ready);
-  scene.addEventListener('arError', () => {
+  // Show tap-start once scene JS is ready (no camera yet)
+  scene.addEventListener('loaded', () => {
     loading.style.display = 'none';
-    camError.classList.add('show');
+    tapStart.classList.add('show');
   });
-
-  // Fallback: if arReady never fires within 15s, clear the loading screen
   setTimeout(() => {
-    if (loading.style.display !== 'none') ready();
-  }, 15000);
+    if (loading.style.display !== 'none') { loading.style.display = 'none'; tapStart.classList.add('show'); }
+  }, 8000);
 
   tapStart.addEventListener('click', () => {
     tapStart.classList.remove('show');
-    document.querySelectorAll('video').forEach(v => {
-      v.muted = false;
-      v.play().then(() => v.pause()).catch(() => {});
-    });
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) { try { new AC().resume(); } catch(e) {} }
+    document.querySelectorAll('video').forEach(v => { v.muted = false; });
+    scene.systems['mindar-image'].start();
+  });
+
+  scene.addEventListener('arReady', () => {
+    const mode = localStorage.getItem('ar-track-mode') || 'single';
+    document.getElementById('toggle-btn').textContent = mode === 'single' ? '1 target' : 'all targets';
+    document.getElementById('mode-toggle').style.display = 'block';
+  });
+
+  scene.addEventListener('arError', () => {
+    loading.style.display = 'none';
+    camError.classList.add('show');
   });
 </script>
 </body>
