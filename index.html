@@ -1,98 +1,148 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Claudia Hart AR</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <meta name="description" content="Web AR experience using AR.js with migrated 8th Wall image targets." />
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Claudia Hart AR</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%; min-height: 100%;
+      background: #f5f0e8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+      color: #1a1a1a;
+    }
 
-    <!-- A-Frame (required by AR.js) -->
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    header {
+      padding: 48px 24px 32px;
+      text-align: center;
+    }
+    header h1 {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    header p {
+      margin-top: 8px;
+      font-size: 13px;
+      opacity: 0.5;
+      letter-spacing: 0.06em;
+    }
 
-    <!-- AR.js (A-Frame version) -->
-    <script src="https://rawcdn.githack.com/AR-js-org/AR.js/3.4.5/aframe/build/aframe-ar.min.js"></script>
+    main {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-    <link rel="stylesheet" href="./styles.css" />
-  </head>
-  <body>
-    <header class="app-header">
-      <div class="branding">
-        <span class="brand-title">Claudia Hart AR</span>
-        <span class="brand-subtitle">Web-based AR experience</span>
-      </div>
-      <div class="status-pill" id="ar-status">Initializing…</div>
-    </header>
+    a.card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 22px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 12px;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s, transform 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    a.card:active { background: #ede8df; transform: scale(0.98); }
 
-    <main class="app-main">
-      <section class="instructions">
-        <h2>How to view</h2>
-        <ol>
-          <li>Grant camera permission when prompted.</li>
-          <li>Point your device at one of the printed image targets.</li>
-          <li>Wait for the 3D content to appear on top of the target.</li>
-        </ol>
-      </section>
+    .card-text {}
+    .card-title {
+      font-size: 16px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
+    .card-sub {
+      margin-top: 3px;
+      font-size: 12px;
+      opacity: 0.45;
+      letter-spacing: 0.03em;
+    }
 
-      <!-- AR scene -->
-      <section class="scene-wrapper">
-        <a-scene
-          vr-mode-ui="enabled: false"
-          embedded
-          renderer="logarithmicDepthBuffer: true; antialias: true;"
-          arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;"
-          id="ar-scene"
-        >
-          <a-assets>
-            <a-asset-item id="jelly-glb" src="test-aframe/src/assets/jellyfish-model.glb"></a-asset-item>
-            <img id="jelly-thumb" src="test-aframe/src/assets/video-thumbnail.jpg">
-            <video id="jelly-video" autoplay muted loop crossorigin="anonymous" src="test-aframe/src/assets/jellyfish-video.mp4"></video>
-          </a-assets>
+    .card-arrow {
+      opacity: 0.25;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
 
-          <!-- Camera -->
-          <a-entity camera></a-entity>
+    footer {
+      text-align: center;
+      padding-bottom: 32px;
+      font-size: 11px;
+      opacity: 0.3;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
 
-          <!-- model-target: print image-targets/model-target_target.jpeg; generate .iset/.fset/.fset3 and put as test-aframe/model-target.* -->
-          <a-nft
-            type="nft"
-            url="test-aframe/model-target"
-            smooth="true"
-            smoothCount="10"
-            smoothTolerance="0.01"
-            smoothThreshold="5"
-            emitevents="true"
-            id="model-marker"
-          >
-            <a-entity gltf-model="#jelly-glb" scale="0.5 0.5 0.5" position="0 0 0"></a-entity>
-          </a-nft>
+<header>
+  <h1>Claudia Hart AR</h1>
+  <p>Select an experience to begin</p>
+</header>
 
-          <!-- video-target: print image-targets/video-target_target.jpeg; generate .iset/.fset/.fset3 and put as test-aframe/video-target.* -->
-          <a-nft
-            type="nft"
-            url="test-aframe/video-target"
-            smooth="true"
-            smoothCount="10"
-            smoothTolerance="0.01"
-            smoothThreshold="5"
-            emitevents="true"
-            id="video-marker"
-          >
-            <a-video
-              src="#jelly-video"
-              position="0 0 0"
-              width="0.79"
-              height="1"
-              rotation="0 0 0"
-            ></a-video>
-          </a-nft>
-        </a-scene>
-      </section>
-    </main>
+<main>
+  <a class="card" href="machiavelli/">
+    <div class="card-text">
+      <div class="card-title">Machiavelli</div>
+      <div class="card-sub">9 targets</div>
+    </div>
+    <svg class="card-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M7 4l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 
-    <footer class="app-footer">
-      <span>Web AR powered by AR.js (A-Frame)</span>
-    </footer>
+  <a class="card" href="alice-walking/">
+    <div class="card-text">
+      <div class="card-title">Alice Walking</div>
+      <div class="card-sub">12 targets</div>
+    </div>
+    <svg class="card-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M7 4l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 
-    <script src="./main.js"></script>
-  </body>
-  </html>
+  <a class="card" href="alice-xr/">
+    <div class="card-text">
+      <div class="card-title">Alice XR</div>
+      <div class="card-sub">4 targets</div>
+    </div>
+    <svg class="card-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M7 4l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
 
+  <a class="card" href="digital-combines/">
+    <div class="card-text">
+      <div class="card-title">Digital Combines</div>
+      <div class="card-sub">8 targets</div>
+    </div>
+    <svg class="card-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M7 4l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+
+  <a class="card" href="russian-roulette/">
+    <div class="card-text">
+      <div class="card-title">Russian Roulette</div>
+      <div class="card-sub">8 targets</div>
+    </div>
+    <svg class="card-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d="M7 4l6 6-6 6" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</main>
+
+<footer>keiiwia.github.io/claudia-hart-ar</footer>
+
+</body>
+</html>

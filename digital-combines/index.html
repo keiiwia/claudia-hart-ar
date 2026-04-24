@@ -25,9 +25,6 @@
         const target = this.el.parentEl;
         target.addEventListener('targetFound', () => {
           if (!window.arUserReady) return;
-          if ((localStorage.getItem('ar-track-mode') || 'multi') === 'single') {
-            document.querySelectorAll('a-assets video').forEach(v => { if (v !== video) v.pause(); });
-          }
           if (video) { video.muted = true; video.play().then(() => { video.muted = false; }).catch(() => {}); }
         });
         target.addEventListener('targetLost', () => { if (video) video.pause(); });
@@ -84,13 +81,6 @@
       border: none; border-radius: 20px; font-size: 14px; cursor: pointer;
     }
 
-    #mode-toggle { position: fixed; bottom: 20px; right: 20px; z-index: 102; display: none; }
-    #mode-toggle button {
-      background: rgba(0,0,0,0.55); color: #fff;
-      border: 1px solid rgba(255,255,255,0.3); border-radius: 20px;
-      padding: 7px 15px; font-size: 12px; font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      cursor: pointer; -webkit-tap-highlight-color: transparent;
-    }
   </style>
 </head>
 <body>
@@ -115,7 +105,6 @@
   <button onclick="location.reload()">Reload</button>
 </div>
 
-<div id="mode-toggle"><button id="toggle-btn" onclick="toggleMode()"></button></div>
 
 <a-scene
   mindar-image="imageTargetSrc: digital-combines/image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; warmupTolerance: 2; missTolerance: 10; maxTrack: 8"
@@ -164,32 +153,14 @@
 </a-scene>
 
 <script>
-  (function() {
-    if ((localStorage.getItem('ar-track-mode') || 'multi') === 'single') {
-      const s = document.querySelector('a-scene');
-      s.setAttribute('mindar-image', s.getAttribute('mindar-image').replace(/maxTrack:\s*\d+/, 'maxTrack: 1'));
-    }
-  })();
-</script>
-
-<script>
   const scene    = document.querySelector('a-scene');
   const loading  = document.getElementById('loading');
   const tapStart = document.getElementById('tap-start');
   const camError = document.getElementById('cam-error');
 
-  function toggleMode() {
-    const cur = localStorage.getItem('ar-track-mode') || 'multi';
-    localStorage.setItem('ar-track-mode', cur === 'single' ? 'multi' : 'single');
-    location.reload();
-  }
-
   function ready() {
     loading.style.display = 'none';
     tapStart.classList.add('show');
-    const mode = localStorage.getItem('ar-track-mode') || 'multi';
-    document.getElementById('toggle-btn').textContent = mode === 'single' ? 'all targets' : '1 target';
-    document.getElementById('mode-toggle').style.display = 'block';
   }
 
   scene.addEventListener('arReady', ready);
@@ -201,7 +172,6 @@
     window.arUserReady = true;
     const AC = window.AudioContext || window.webkitAudioContext;
     if (AC) { try { new AC().resume(); } catch(e) {} }
-    document.querySelectorAll('a-assets video').forEach(v => { v.muted = false; });
   });
 </script>
 </body>
