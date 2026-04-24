@@ -24,7 +24,7 @@
         const target = this.el.parentEl;
         target.addEventListener('targetFound', () => {
           if (!window.arUserReady) return;
-          if ((localStorage.getItem('ar-track-mode') || 'single') === 'single') {
+          if ((localStorage.getItem('ar-track-mode') || 'multi') === 'single') {
             document.querySelectorAll('a-assets video').forEach(v => { if (v !== video) v.pause(); });
           }
           if (video) { video.muted = true; video.play().then(() => { video.muted = false; }).catch(() => {}); }
@@ -168,7 +168,7 @@
 
 <script>
   (function() {
-    if ((localStorage.getItem('ar-track-mode') || 'single') === 'single') {
+    if ((localStorage.getItem('ar-track-mode') || 'multi') === 'single') {
       const s = document.querySelector('a-scene');
       s.setAttribute('mindar-image', s.getAttribute('mindar-image').replace(/maxTrack:\s*\d+/, 'maxTrack: 1'));
     }
@@ -182,7 +182,7 @@
   const camError = document.getElementById('cam-error');
 
   function toggleMode() {
-    const cur = localStorage.getItem('ar-track-mode') || 'single';
+    const cur = localStorage.getItem('ar-track-mode') || 'multi';
     localStorage.setItem('ar-track-mode', cur === 'single' ? 'multi' : 'single');
     location.reload();
   }
@@ -190,8 +190,8 @@
   function ready() {
     loading.style.display = 'none';
     tapStart.classList.add('show');
-    const mode = localStorage.getItem('ar-track-mode') || 'single';
-    document.getElementById('toggle-btn').textContent = mode === 'single' ? '1 target' : 'all targets';
+    const mode = localStorage.getItem('ar-track-mode') || 'multi';
+    document.getElementById('toggle-btn').textContent = mode === 'single' ? 'all targets' : '1 target';
     document.getElementById('mode-toggle').style.display = 'block';
   }
 
