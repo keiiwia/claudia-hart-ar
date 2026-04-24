@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Ruins Wallpaper</title>
+  <meta itemprop="name" content="Ruins Wallpaper">
+  <meta name="twitter:title" content="Ruins Wallpaper">
+  <meta property="og:title" content="Ruins Wallpaper">
+  <meta property="og:site_name" content="Ruins Wallpaper">
+  <meta name="description" content="">
+  <meta itemprop="description" content="">
+  <meta property="og:description" content="">
+  <meta name="twitter:description" content="">
+  <script crossorigin="anonymous" src="./external/scripts/8frame-1.3.0.min.js"></script>
+  <script crossorigin="anonymous" src="./external/xrextras/xrextras.js"></script>
+  <script crossorigin="anonymous" src="./external/landing-page/landing-page.js"></script>
+  <script crossorigin="anonymous" src="./external/xr/xr.js" async="true" data-preload-chunks="face, slam">
+  </script>
+
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- head.html is optional; elements will be added to your html head before app.js is loaded. -->
+
+<!-- Use "8thwall:" meta tags to hook into 8th Wall's build process and developer tools. -->
+<meta name="8thwall:renderer" content="aframe:1.3.0"/>
+<meta name="8thwall:package" content="@8thwall.xrextras"/>
+<meta name="8thwall:package" content="@8thwall.landing-page"/>
+
+<!-- Other external scripts and meta tags can also be added. -->
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+
+</head>
+
+<body>
+<script src="bundle.js"></script>
+<!-- Copyright (c) 2022 8th Wall, Inc. -->
+<!-- body.html is optional; elements will be added to your html body after app.js is loaded. -->
+ 
+<a-scene
+  xrextras-gesture-detector
+  landing-page
+  xrextras-loading
+  xrextras-runtime-error
+  xrweb="disableWorldTracking:true;"
+  renderer="colorManagement:true; webgl2: true;">
+
+  <a-assets>
+
+    <video
+      id="EatFacebook_500-optimized"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/1-EatFacebook_500-optimized.mp4">
+    </video>
+
+    <video
+      id="FourOnFour_500"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/2-FourOnFour_500.mp4">
+    </video>
+
+    <video
+      id="StepBackSee_500"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/3-StepBackSee_500.mp4">
+    </video>
+
+    <video
+      id="SouthOfFranceNoise_500"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/4-SouthOfFranceNoise_500.mp4">
+    </video>
+
+    <video
+      id="JoyfulNoise_500"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/1-JoyfulNoise_500.mp4">
+    </video>
+
+    <video
+      id="Transcend_500"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/2-Transcend_500.mp4">
+    </video>
+
+    <video
+      id="FormalRedNoise_500"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/3-FormalRedNoise_500.mp4">
+    </video>
+
+    <video
+      id="No_500"
+      autoplay="true"
+      muted="true"
+      crossorigin="anonymous"
+      loop="true"
+      src="assets/4-No_500.mp4">
+    </video>
+
+    
+  </a-assets>
+
+  <a-camera
+    position="0 4 10"
+    raycaster="objects: .cantap"
+    cursor="fuse: false; rayOrigin: mouse;">
+  </a-camera>
+
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <xrextras-named-image-target name="JoyfulWallpaper_1">
+    <xrextras-target-video-fade 
+      video="#EatFacebook_500-optimized"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="JoyfulWallpaper_2">
+    <xrextras-target-video-fade 
+      video="#FourOnFour_500"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="JoyfulWallpaper_3">
+    <xrextras-target-video-fade 
+      video="#StepBackSee_500"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="JoyfulWallpaper_4">
+    <xrextras-target-video-fade 
+      video="#SouthOfFranceNoise_500"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="RuinsWallpaper_1">
+    <xrextras-target-video-fade 
+      video="#JoyfulNoise_500"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="RuinsWallpaper_2">
+    <xrextras-target-video-fade 
+      video="#Transcend_500"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="RuinsWallpaper_3">
+    <xrextras-target-video-fade 
+      video="#FormalRedNoise_500"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  <xrextras-named-image-target name="RuinsWallpaper_4">
+    <xrextras-target-video-fade 
+      video="#No_500"
+      height="1"
+      width="1.33"
+     ></xrextras-target-video-fade>
+  </xrextras-named-image-target>
+
+  
+
+</a-scene>
+
+
+</body>
+
+</html>
