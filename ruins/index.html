@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Ruins AR</title>
+
+  <!--
+  COMPILER ORDER (index must match targetIndex below — assumed alphabetical):
+    0→JoyfulWallpaper_1  1→JoyfulWallpaper_2  2→JoyfulWallpaper_3  3→JoyfulWallpaper_4
+    4→RuinsWallpaper_1   5→RuinsWallpaper_2   6→RuinsWallpaper_3   7→RuinsWallpaper_4
+  Source jpegs: image-targets/*_target.jpeg
+  Output: ruins/image-targets/targets.mind
+  Videos: src/assets/
+  -->
+
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <script>
+    AFRAME.registerComponent('play-on-target', {
+      init() {
+        const video = document.querySelector(this.el.getAttribute('src'));
+        const target = this.el.parentEl;
+        target.addEventListener('targetFound', () => {
+          if (!window.arUserReady) return;
+          if (video) { video.muted = true; video.play().then(() => { video.muted = false; }).catch(() => {}); }
+        });
+        target.addEventListener('targetLost', () => { if (video) video.pause(); });
+      }
+    });
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: transparent; }
+
+    #loading {
+      position: fixed; inset: 0; z-index: 100;
+      background: #000; color: #fff;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 20px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    .spinner {
+      width: 44px; height: 44px;
+      border: 3px solid rgba(255,255,255,0.15);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #loading p { font-size: 14px; opacity: 0.6; letter-spacing: 0.03em; }
+
+    #tap-start {
+      position: fixed; inset: 0; z-index: 99;
+      background: rgba(0,0,0,0.65);
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 16px;
+      color: #fff; font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      cursor: pointer; -webkit-tap-highlight-color: transparent;
+    }
+    #tap-start.show { display: flex; }
+    #tap-start p { font-size: 16px; text-align: center; padding: 0 32px; line-height: 1.5; opacity: 0.85; }
+    #tap-start small { font-size: 12px; opacity: 0.5; }
+
+    #cam-error {
+      position: fixed; inset: 0; z-index: 101;
+      background: #000; color: #fff;
+      display: none; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      text-align: center; padding: 32px;
+    }
+    #cam-error.show { display: flex; }
+    #cam-error h2 { font-size: 20px; font-weight: 600; }
+    #cam-error p { font-size: 14px; opacity: 0.65; line-height: 1.6; max-width: 280px; }
+    #cam-error button {
+      margin-top: 8px; padding: 10px 24px;
+      background: #fff; color: #000;
+      border: none; border-radius: 20px; font-size: 14px; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="spinner"></div>
+  <p>Starting camera…</p>
+</div>
+
+<div id="tap-start">
+  <svg width="56" height="56" viewBox="0 0 56 56" fill="none">
+    <circle cx="28" cy="28" r="27" stroke="white" stroke-width="2" stroke-opacity="0.4"/>
+    <polygon points="22,18 40,28 22,38" fill="white"/>
+  </svg>
+  <p>Point your camera at the artwork<br>and tap to enable sound</p>
+  <small>Tap anywhere to continue</small>
+</div>
+
+<div id="cam-error">
+  <h2>Camera Required</h2>
+  <p>Allow camera access in your browser settings, then reload the page.</p>
+  <button onclick="location.reload()">Reload</button>
+</div>
+
+<a-scene
+  mindar-image="imageTargetSrc: image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; warmupTolerance: 2; missTolerance: 10; maxTrack: 8"
+  color-space="sRGB"
+  renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true"
+  vr-mode-ui="enabled: false"
+  device-orientation-permission-ui="enabled: false"
+>
+  <a-assets>
+    <video id="v0" src="src/assets/1-EatFacebook_500-optimized.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v1" src="src/assets/2-FourOnFour_500.mp4"            muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v2" src="src/assets/3-StepBackSee_500.mp4"           muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v3" src="src/assets/4-SouthOfFranceNoise_500.mp4"    muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v4" src="src/assets/1-JoyfulNoise_500.mp4"           muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v5" src="src/assets/2-Transcend_500.mp4"             muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v6" src="src/assets/3-FormalRedNoise_500.mp4"        muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v7" src="src/assets/4-No_500.mp4"                    muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+  </a-assets>
+
+  <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
+  <a-entity mindar-image-target="targetIndex: 0"><!-- JoyfulWallpaper_1 → EatFacebook -->
+    <a-video src="#v0" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 1"><!-- JoyfulWallpaper_2 → FourOnFour -->
+    <a-video src="#v1" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 2"><!-- JoyfulWallpaper_3 → StepBackSee -->
+    <a-video src="#v2" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 3"><!-- JoyfulWallpaper_4 → SouthOfFranceNoise -->
+    <a-video src="#v3" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 4"><!-- RuinsWallpaper_1 → JoyfulNoise -->
+    <a-video src="#v4" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 5"><!-- RuinsWallpaper_2 → Transcend -->
+    <a-video src="#v5" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 6"><!-- RuinsWallpaper_3 → FormalRedNoise -->
+    <a-video src="#v6" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
+  </a-entity>
+  <a-entity mindar-image-target="targetIndex: 7"><!-- RuinsWallpaper_4 → No -->
+    <a-video src="#v7" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
+  </a-entity>
+</a-scene>
+
+<script>
+  const scene    = document.querySelector('a-scene');
+  const loading  = document.getElementById('loading');
+  const tapStart = document.getElementById('tap-start');
+  const camError = document.getElementById('cam-error');
+
+  function ready() {
+    loading.style.display = 'none';
+    tapStart.classList.add('show');
+  }
+
+  scene.addEventListener('arReady', ready);
+  scene.addEventListener('arError', () => { loading.style.display = 'none'; camError.classList.add('show'); });
+  setTimeout(() => { if (loading.style.display !== 'none') ready(); }, 15000);
+
+  tapStart.addEventListener('click', () => {
+    tapStart.classList.remove('show');
+    window.arUserReady = true;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (AC) { try { new AC().resume(); } catch(e) {} }
+  });
+</script>
+</body>
+</html>
