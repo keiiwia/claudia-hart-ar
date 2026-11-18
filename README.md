@@ -19,7 +19,7 @@ Each app:
 2. Detects printed target images from the catalog/book
 3. Plays an MP4 video overlay on top of the target
 
-Tracking is limited to one target at a time (`maxTrack: 1`) so neighboring catalog pages don't trigger overlapping augments; all video overlays use a consistent horizontal (landscape) plane.
+Tracking is limited to one target at a time (`maxTrack: 1`) so neighboring catalog pages don't trigger overlapping augments; all video overlays use a consistent horizontal (landscape) plane. A `keep-upright` component counter-rotates each overlay to the nearest 90° of the tracked print's on-screen angle, so augments always read horizontally even when a wallpaper tile or compiled target is rotated. Videos found before the sound tap start playing on the tap (`ar-user-ready` event) instead of staying black.
 
 ## Folder structure
 

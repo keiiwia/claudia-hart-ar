@@ -19,21 +19,43 @@
 
   <script>
     // Picks a random quote video each time the wallpaper is found (the "roulette").
+    // If the user hasn't tapped yet, the spin is queued and runs on the tap.
     AFRAME.registerComponent('video-roulette', {
       init() {
         const ids = ['#v0', '#v1', '#v2', '#v3', '#v4', '#v5', '#v6', '#v7'];
         const target = this.el.parentEl;
         let current = null;
-        target.addEventListener('targetFound', () => {
-          if (!window.arUserReady) return;
+        let visible = false;
+        const spin = () => {
+          if (!visible || !window.arUserReady) return;
           const pick = ids[Math.floor(Math.random() * ids.length)];
           if (current) current.pause();
           current = document.querySelector(pick);
           this.el.setAttribute('src', pick);
           current.muted = true;
           current.play().then(() => { current.muted = false; }).catch(() => {});
-        });
-        target.addEventListener('targetLost', () => { if (current) current.pause(); });
+        };
+        target.addEventListener('targetFound', () => { visible = true; spin(); });
+        target.addEventListener('targetLost', () => { visible = false; if (current) current.pause(); });
+        window.addEventListener('ar-user-ready', spin);
+      }
+    });
+
+    // Counter-rotates the overlay to the nearest 90 degrees so it always reads
+    // horizontally, whatever orientation the printed target happens to be in.
+    AFRAME.registerComponent('keep-upright', {
+      tick: function (t) {
+        if (this._next && t < this._next) return;
+        this._next = t + 300;
+        const THREE = AFRAME.THREE;
+        const targetObj = this.el.parentEl.object3D;
+        const cam = this.el.sceneEl.camera;
+        if (!cam || !targetObj.visible) return;
+        const p0 = targetObj.localToWorld(new THREE.Vector3(0, 0, 0)).project(cam);
+        const p1 = targetObj.localToWorld(new THREE.Vector3(1, 0, 0)).project(cam);
+        const ang = Math.atan2(p1.y - p0.y, p1.x - p0.x);
+        const snap = Math.round(ang / (Math.PI / 2)) * (Math.PI / 2);
+        this.el.object3D.rotation.z = -snap;
       }
     });
   </script>
@@ -138,7 +160,7 @@
        instead one target spans several repeats and a random quote video plays
        each time it is found — the roulette. -->
   <a-entity mindar-image-target="targetIndex: 0">
-    <a-video src="#v0" position="0 0 0.001" width="1.33" height="1" video-roulette></a-video>
+    <a-video src="#v0" position="0 0 0.001" width="1.33" height="1" video-roulette keep-upright></a-video>
   </a-entity>
 </a-scene>
 
@@ -160,6 +182,7 @@
   tapStart.addEventListener('click', () => {
     tapStart.classList.remove('show');
     window.arUserReady = true;
+    window.dispatchEvent(new Event('ar-user-ready'));
     const AC = window.AudioContext || window.webkitAudioContext;
     if (AC) { try { new AC().resume(); } catch(e) {} }
   });

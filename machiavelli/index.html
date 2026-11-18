@@ -18,15 +18,39 @@
 
   <!-- Register component BEFORE a-scene is parsed -->
   <script>
+    // Plays the video when its target is found; if the user hasn't tapped yet,
+    // playback is queued and started on the tap (ar-user-ready event).
     AFRAME.registerComponent('play-on-target', {
       init() {
         const video = document.querySelector(this.el.getAttribute('src'));
         const target = this.el.parentEl;
-        target.addEventListener('targetFound', () => {
-          if (!window.arUserReady) return;
-          if (video) { video.muted = true; video.play().then(() => { video.muted = false; }).catch(() => {}); }
-        });
-        target.addEventListener('targetLost', () => { if (video) video.pause(); });
+        let visible = false;
+        const tryPlay = () => {
+          if (!video || !visible || !window.arUserReady) return;
+          video.muted = true;
+          video.play().then(() => { video.muted = false; }).catch(() => {});
+        };
+        target.addEventListener('targetFound', () => { visible = true; tryPlay(); });
+        target.addEventListener('targetLost', () => { visible = false; if (video) video.pause(); });
+        window.addEventListener('ar-user-ready', tryPlay);
+      }
+    });
+
+    // Counter-rotates the overlay to the nearest 90 degrees so it always reads
+    // horizontally, whatever orientation the printed target happens to be in.
+    AFRAME.registerComponent('keep-upright', {
+      tick: function (t) {
+        if (this._next && t < this._next) return;
+        this._next = t + 300;
+        const THREE = AFRAME.THREE;
+        const targetObj = this.el.parentEl.object3D;
+        const cam = this.el.sceneEl.camera;
+        if (!cam || !targetObj.visible) return;
+        const p0 = targetObj.localToWorld(new THREE.Vector3(0, 0, 0)).project(cam);
+        const p1 = targetObj.localToWorld(new THREE.Vector3(1, 0, 0)).project(cam);
+        const ang = Math.atan2(p1.y - p0.y, p1.x - p0.x);
+        const snap = Math.round(ang / (Math.PI / 2)) * (Math.PI / 2);
+        this.el.object3D.rotation.z = -snap;
       }
     });
   </script>
@@ -127,31 +151,31 @@
   <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
   <a-entity mindar-image-target="targetIndex: 0">
-    <a-video src="#v0" position="0 0 0.001" width="1.35" height="1" play-on-target></a-video>
+    <a-video src="#v0" position="0 0 0.001" width="1.35" height="1" play-on-target keep-upright></a-video>
   </a-entity>
   <a-entity mindar-image-target="targetIndex: 1">
-    <a-video src="#v1" position="0 0 0.001" width="1.045" height="1" play-on-target></a-video>
+    <a-video src="#v1" position="0 0 0.001" width="1.045" height="1" play-on-target keep-upright></a-video>
   </a-entity>
   <a-entity mindar-image-target="targetIndex: 2">
-    <a-video src="#v2" position="0 0 0.001" width="1.11" height="1" play-on-target></a-video>
+    <a-video src="#v2" position="0 0 0.001" width="1.11" height="1" play-on-target keep-upright></a-video>
   </a-entity>
   <a-entity mindar-image-target="targetIndex: 3">
-    <a-video src="#v3" position="0 0 0.001" width="1.05" height="1" play-on-target></a-video>
+    <a-video src="#v3" position="0 0 0.001" width="1.05" height="1" play-on-target keep-upright></a-video>
   </a-entity>
   <a-entity mindar-image-target="targetIndex: 4">
-    <a-video src="#v4" position="0 0 0.001" width="1.4" height="1.075" play-on-target></a-video>
+    <a-video src="#v4" position="0 0 0.001" width="1.4" height="1.075" play-on-target keep-upright></a-video>
   </a-entity>
   <a-entity mindar-image-target="targetIndex: 5">
-    <a-video src="#v5" position="0 0 0.001" width="1.45" height="1" play-on-target></a-video>
+    <a-video src="#v5" position="0 0 0.001" width="1.45" height="1" play-on-target keep-upright></a-video>
   </a-entity>
   <a-entity mindar-image-target="targetIndex: 6">
-    <a-video src="#v6" position="0 0 0.001" width="1.33" height="1.065" play-on-target></a-video>
+    <a-video src="#v6" position="0 0 0.001" width="1.33" height="1.065" play-on-target keep-upright></a-video>
   </a-entity>
   <a-entity mindar-image-target="targetIndex: 7">
-    <a-video src="#v7" position="0 0 0.001" width="1.12" height="1" play-on-target></a-video>
+    <a-video src="#v7" position="0 0 0.001" width="1.12" height="1" play-on-target keep-upright></a-video>
   </a-entity>
   <a-entity mindar-image-target="targetIndex: 8">
-    <a-video src="#v8" position="0 0 0.001" width="1.45" height="1.13" play-on-target></a-video>
+    <a-video src="#v8" position="0 0 0.001" width="1.45" height="1.13" play-on-target keep-upright></a-video>
   </a-entity>
 </a-scene>
 
@@ -173,6 +197,7 @@
   tapStart.addEventListener('click', () => {
     tapStart.classList.remove('show');
     window.arUserReady = true;
+    window.dispatchEvent(new Event('ar-user-ready'));
     const AC = window.AudioContext || window.webkitAudioContext;
     if (AC) { try { new AC().resume(); } catch(e) {} }
   });
