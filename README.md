@@ -19,7 +19,7 @@ Each app:
 2. Detects printed target images from the catalog/book
 3. Plays an MP4 video overlay on top of the target
 
-Multiple targets can be active simultaneously. (in-progress)
+Tracking is limited to one target at a time (`maxTrack: 1`) so neighboring catalog pages don't trigger overlapping augments; all video overlays use a consistent horizontal (landscape) plane.
 
 ## Folder structure
 
@@ -55,16 +55,19 @@ To switch language: change video paths in `index.html` to `rr-chinese/` or `rr-s
 ### Alice Walking (11 targets)
 
 ### Digital Combines (8 targets)
-| Target | Video |
+Content taken from the original 8th Wall export (`digital-combines-hermitage-wallpaper-2021-plus-alice-dishes-2014`): wallpaper targets get video overlays, dish targets get 3D models.
+| Target | Augment |
 |---|---|
-| ZigZagClothNoise | LittleRedRandom_LozengeAugment.mp4 |
-| WeirdEastern | CellularPacMan_Lozenge.mp4 |
-| RedArp | BigRedNudeSquare_augment.mp4 |
-| QR_1000DPI | QR_Circle_Augment.mp4 |
-| Random-Glitch-Plate | RandomGlitche_Square_HalfElipse_1.mp4 |
-| MirrorGlitch_9.1inch | MirrorGlitch_WithElipseCut_Augment.mp4 |
-| LinearLeather_9.1inch | LinearLeather_Square_Augment.mp4 |
-| emoji-tartan | EmojiTartan_Square_Augment.mp4 |
+| ZigZagClothNoise | videos/og-15.mp4 |
+| WeirdEastern | videos/og-8.mp4 |
+| RedArp | videos/og-6.mp4 |
+| QR_1000DPI | models/flower-matrix.glb |
+| Random-Glitch-Plate | models/glitch-picassos.glb |
+| MirrorGlitch_9.1inch | models/henri.glb |
+| LinearLeather_9.1inch | models/linear-leather-still-life-guitar.glb |
+| emoji-tartan | models/matisse-still-life.glb |
+
+Not yet in the compiled `targets.mind` (recompile needed to add): JoyfulNoiseOrange → og-16.mp4, nue-morte-round-dish → nue-morte-round.glb.
 
 
 <!-- ## Testing locally

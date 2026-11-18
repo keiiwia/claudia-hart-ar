@@ -10,9 +10,13 @@
   COMPILER ORDER (index must match targetIndex below):
     0→ZigZagClothNoise  1→WeirdEastern  2→RedArp  3→QR_1000DPI
     4→Random-Glitch-Plate  5→MirrorGlitch_9.1inch  6→LinearLeather_9.1inch  7→emoji-tartan
-  Source jpegs: targets/digital-combines-image-targets/
   Output: digital-combines/image-targets/targets.mind
-  Videos: digital-combines/videos/  (add MP4s here)
+
+  CONTENT MAPPING (from the original 8th Wall export,
+  digital-combines-hermitage-wallpaper-2021-plus-alice-dishes-2014/src/body.html):
+    wallpaper targets → video overlays (videos/og-*.mp4)
+    dish targets      → 3D models (models/*.glb)
+  Not in the compiled .mind yet: JoyfulNoiseOrange→og-16.mp4, nue-morte-round-dish→nue-morte-round.glb
   -->
 
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
@@ -107,48 +111,51 @@
 
 
 <a-scene
-  mindar-image="imageTargetSrc: digital-combines/image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; warmupTolerance: 2; missTolerance: 10; maxTrack: 8"
+  mindar-image="imageTargetSrc: image-targets/targets.mind; autoStart: true; uiLoading: no; uiError: no; uiScanning: no; filterMinCF: 0.001; filterBeta: 0.01; warmupTolerance: 2; missTolerance: 10; maxTrack: 1"
   color-space="sRGB"
   renderer="colorManagement: true; physicallyCorrectLights: true; alpha: true"
   vr-mode-ui="enabled: false"
   device-orientation-permission-ui="enabled: false"
 >
-  <a-assets>
-    <video id="v0" src="videos/LittleRedRandom_LozengeAugment.mp4"       muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v1" src="videos/CellularPacMan_Lozenge.mp4"               muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v2" src="videos/BigRedNudeSquare_augment.mp4"             muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v3" src="videos/QR_Circle_Augment.mp4"                    muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v4" src="videos/RandomGlitche_Square_HalfElipse_1.mp4"   muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v5" src="videos/MirrorGlitch_WithElipseCut_Augment.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v6" src="videos/LinearLeather_Square_Augment.mp4"         muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
-    <video id="v7" src="videos/EmojiTartan_Square_Augment.mp4"           muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+  <a-assets timeout="30000">
+    <video id="v0" src="videos/og-15.mp4" muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v1" src="videos/og-8.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <video id="v2" src="videos/og-6.mp4"  muted playsinline webkit-playsinline loop preload="auto" crossorigin="anonymous"></video>
+    <a-asset-item id="m-flower-matrix"   src="models/flower-matrix.glb"></a-asset-item>
+    <a-asset-item id="m-glitch-picassos" src="models/glitch-picassos.glb"></a-asset-item>
+    <a-asset-item id="m-henri"           src="models/henri.glb"></a-asset-item>
+    <a-asset-item id="m-linear-leather"  src="models/linear-leather-still-life-guitar.glb"></a-asset-item>
+    <a-asset-item id="m-matisse"         src="models/matisse-still-life.glb"></a-asset-item>
   </a-assets>
 
   <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-  <a-entity mindar-image-target="targetIndex: 0"><!-- ZigZagClothNoise → LittleRedRandom -->
-    <a-video src="#v0" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <a-light type="directional" intensity="0.5" position="1 1 1"></a-light>
+  <a-light type="ambient" intensity="0.7"></a-light>
+
+  <a-entity mindar-image-target="targetIndex: 0"><!-- ZigZagClothNoise → og-15 video -->
+    <a-video src="#v0" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
   </a-entity>
-  <a-entity mindar-image-target="targetIndex: 1"><!-- WeirdEastern → CellularPacMan -->
-    <a-video src="#v1" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <a-entity mindar-image-target="targetIndex: 1"><!-- WeirdEastern → og-8 video -->
+    <a-video src="#v1" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
   </a-entity>
-  <a-entity mindar-image-target="targetIndex: 2"><!-- RedArp → BigRedNudeSquare -->
-    <a-video src="#v2" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <a-entity mindar-image-target="targetIndex: 2"><!-- RedArp → og-6 video -->
+    <a-video src="#v2" position="0 0 0.001" width="1.33" height="1" play-on-target></a-video>
   </a-entity>
-  <a-entity mindar-image-target="targetIndex: 3"><!-- QR_1000DPI → QR_Circle -->
-    <a-video src="#v3" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <a-entity mindar-image-target="targetIndex: 3"><!-- QR_1000DPI → flower-matrix model -->
+    <a-entity position="0 -0.18 0" scale="0.55 0.55 0.55" rotation="90 0 0" gltf-model="#m-flower-matrix"></a-entity>
   </a-entity>
-  <a-entity mindar-image-target="targetIndex: 4"><!-- Random-Glitch-Plate → RandomGlitche -->
-    <a-video src="#v4" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <a-entity mindar-image-target="targetIndex: 4"><!-- Random-Glitch-Plate → glitch-picassos model -->
+    <a-entity scale="0.25 0.25 0.25" rotation="90 0 0" gltf-model="#m-glitch-picassos"></a-entity>
   </a-entity>
-  <a-entity mindar-image-target="targetIndex: 5"><!-- MirrorGlitch → MirrorGlitch_WithElipse -->
-    <a-video src="#v5" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <a-entity mindar-image-target="targetIndex: 5"><!-- MirrorGlitch → henri model -->
+    <a-entity scale="0.4 0.4 0.4" rotation="90 0 0" gltf-model="#m-henri"></a-entity>
   </a-entity>
-  <a-entity mindar-image-target="targetIndex: 6"><!-- LinearLeather → LinearLeather_Square -->
-    <a-video src="#v6" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <a-entity mindar-image-target="targetIndex: 6"><!-- LinearLeather → still-life-guitar model -->
+    <a-entity scale="48 48 48" rotation="90 0 0" gltf-model="#m-linear-leather"></a-entity>
   </a-entity>
-  <a-entity mindar-image-target="targetIndex: 7"><!-- emoji-tartan → EmojiTartan_Square -->
-    <a-video src="#v7" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <a-entity mindar-image-target="targetIndex: 7"><!-- emoji-tartan → matisse-still-life model -->
+    <a-entity scale="47 47 47" rotation="90 0 0" gltf-model="#m-matisse"></a-entity>
   </a-entity>
 </a-scene>
 
