@@ -18,15 +18,22 @@
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
 
   <script>
-    AFRAME.registerComponent('play-on-target', {
+    // Picks a random quote video each time the wallpaper is found (the "roulette").
+    AFRAME.registerComponent('video-roulette', {
       init() {
-        const video = document.querySelector(this.el.getAttribute('src'));
+        const ids = ['#v0', '#v1', '#v2', '#v3', '#v4', '#v5', '#v6', '#v7'];
         const target = this.el.parentEl;
+        let current = null;
         target.addEventListener('targetFound', () => {
           if (!window.arUserReady) return;
-          if (video) { video.muted = true; video.play().then(() => { video.muted = false; }).catch(() => {}); }
+          const pick = ids[Math.floor(Math.random() * ids.length)];
+          if (current) current.pause();
+          current = document.querySelector(pick);
+          this.el.setAttribute('src', pick);
+          current.muted = true;
+          current.play().then(() => { current.muted = false; }).catch(() => {});
         });
-        target.addEventListener('targetLost', () => { if (video) video.pause(); });
+        target.addEventListener('targetLost', () => { if (current) current.pause(); });
       }
     });
   </script>
@@ -126,29 +133,12 @@
 
   <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
-  <a-entity mindar-image-target="targetIndex: 0"><!-- 00060 → og3 -->
-    <a-video src="#v0" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
-  </a-entity>
-  <a-entity mindar-image-target="targetIndex: 1"><!-- 00113 → og2 -->
-    <a-video src="#v1" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
-  </a-entity>
-  <a-entity mindar-image-target="targetIndex: 2"><!-- 00182 → og9 -->
-    <a-video src="#v2" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
-  </a-entity>
-  <a-entity mindar-image-target="targetIndex: 3"><!-- 00225 → og4 -->
-    <a-video src="#v3" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
-  </a-entity>
-  <a-entity mindar-image-target="targetIndex: 4"><!-- 00313 → og6 -->
-    <a-video src="#v4" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
-  </a-entity>
-  <a-entity mindar-image-target="targetIndex: 5"><!-- 00342 → og10 -->
-    <a-video src="#v5" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
-  </a-entity>
-  <a-entity mindar-image-target="targetIndex: 6"><!-- 00387 → og8 -->
-    <a-video src="#v6" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
-  </a-entity>
-  <a-entity mindar-image-target="targetIndex: 7"><!-- 00806 → og7 -->
-    <a-video src="#v7" position="0 0 0.001" width="1" height="1" play-on-target></a-video>
+  <!-- Single wallpaper target (full catalog page, compiled from a large crop).
+       The wallpaper pattern repeats, so distinct per-medallion targets cross-match;
+       instead one target spans several repeats and a random quote video plays
+       each time it is found — the roulette. -->
+  <a-entity mindar-image-target="targetIndex: 0">
+    <a-video src="#v0" position="0 0 0.001" width="1.33" height="1" video-roulette></a-video>
   </a-entity>
 </a-scene>
 
